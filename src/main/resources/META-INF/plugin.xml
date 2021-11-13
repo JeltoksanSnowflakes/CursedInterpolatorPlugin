@@ -1,0 +1,49 @@
+<idea-plugin>
+    <id>net.waterfallflower.CursedInterpolatorPlugin</id>
+    <name>Cursed Interpolator</name>
+    <vendor url="https://github.com/WaterfallFlower">WaterfallFlower</vendor>
+
+    <description><![CDATA[
+    CursedInterpolator, but as IntelliJ IDEA plugin.<br/><br/>
+
+    Original program:<br/>
+    Copyright (C) 2013 bspkrs<br/>
+    Portions Copyright (C) 2013 Alex "immibis" Campbell<br/><br/>
+
+    Fabric Mappings adaptation:<br/>
+    calmilamsy<br/><br/>
+
+    Intellij IDEA integration:<br/>
+    WaterfallFlower<br/><br/>
+
+    <h3>Credits:</h3>
+    - bspkrs (<a href="https://github.com/bspkrs/MCPMappingViewer">MCPMappingsViewer</a>);<br/>
+    - immibis (<a href="https://github.com/immibis/bearded-octo-nemesis">BON</a>);<br/>
+    - Searge et al (<a href="http://mcp.ocean-labs.de">MCP</a>);<br/>
+    - Fabric (<a href="https://fabricmc.net">Enigma</a>);<br/>
+    - Cursed Fabric (<a href="https://minecraft-cursed-legacy.github.io/">Unified b1.7.3 JAR</a>);<br/>
+
+    <em>Should work with versions higher than 2021.1.3<em/>
+    ]]></description>
+
+    <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationService serviceImplementation="net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorSettingsStorage"/>
+        <toolWindow id="net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorWindowFactory" secondary="true" icon="AllIcons.Nodes.DataTables" anchor="right"
+                    factoryClass="net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorWindowFactory"/>
+        <applicationConfigurable parentId="tools" instance="net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorConfigurable"
+                                 id="net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorConfigurable"
+                                 displayName="Cursed Interpolator"/>
+
+        <!-- Delete this -->
+        <toolWindow id="net.waterfallflower.cursedinterpolatorplugin.cursed.ToolWindowAppletMinecraft" secondary="true" icon="AllIcons.FileTypes.Java" anchor="right"
+                    factoryClass="net.waterfallflower.cursedinterpolatorplugin.cursed.ToolWindowAppletMinecraft"/>
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+</idea-plugin>
