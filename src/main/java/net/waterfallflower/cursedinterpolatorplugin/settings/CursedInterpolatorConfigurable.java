@@ -1,8 +1,8 @@
-package net.waterfallflower.cursedinterpolatorplugin;
+package net.waterfallflower.cursedinterpolatorplugin.settings;
 
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.util.NlsContexts;
-import net.waterfallflower.cursedinterpolatorplugin.settings.CursedInterpolatorSettingsForm;
+import net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorSettingsStorage;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
 

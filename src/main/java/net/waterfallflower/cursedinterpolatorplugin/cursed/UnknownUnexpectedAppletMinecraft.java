@@ -17,7 +17,8 @@ import java.util.Arrays;
 public class UnknownUnexpectedAppletMinecraft extends JApplet {
 
     static {
-        addToClasspath(new File("C:\\Users\\Public\\AppData\\Roaming\\rubeta\\bin\\minecraft.jar"),
+        addToClasspath(new File("F:\\WORKSPACES\\1.7.3-LTS-master\\jars\\bin\\a1.1.11_10.jar"),
+                new File("F:\\WORKSPACES\\1.7.3-LTS-master\\jars\\bin\\a1.1.2_01.jar"),
                 new File("F:\\WORKSPACES\\1.7.3-LTS-master\\jars\\bin\\lwjgl_util.jar"),
                 new File("F:\\WORKSPACES\\1.7.3-LTS-master\\jars\\bin\\lwjgl.jar"),
                 new File("F:\\WORKSPACES\\1.7.3-LTS-master\\jars\\bin\\jinput.jar"));
@@ -45,11 +46,7 @@ public class UnknownUnexpectedAppletMinecraft extends JApplet {
         try {
             final Field usrPathsField = ClassLoader.class.getDeclaredField("usr_paths");
             usrPathsField.setAccessible(true);
-
-            //get array of paths
             final String[] paths = (String[])usrPathsField.get(null);
-
-            //check if the path to add is already present
             for(String path : paths) {
                 if(path.equals(pathToAdd)) {
                     return;
@@ -66,9 +63,10 @@ public class UnknownUnexpectedAppletMinecraft extends JApplet {
     }
 
 
+
     private Applet getAppletInstance() {
         try {
-            Class<?> c = Class.forName("net.minecraft.client.MinecraftApplet", true, CLASSLOADER_);
+            Class<?> c = Class.forName("com.mojang.minecraft.MinecraftApplet", true, CLASSLOADER_);
             for(int i = 0; i < c.getDeclaredConstructors().length; i++) {
                 System.out.println(c.getDeclaredConstructors()[i].toGenericString());
             }

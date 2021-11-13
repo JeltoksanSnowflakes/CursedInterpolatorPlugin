@@ -411,7 +411,6 @@ public class MappingGui extends JFrame {
         pnlControls.add(cmbSide);
 
         btnRefreshTables = new JButton("Reload/Load");
-        btnRefreshTables.setEnabled(false);
         btnRefreshTables.addActionListener(new RefreshActionListener());
         pnlControls.add(btnRefreshTables);
 

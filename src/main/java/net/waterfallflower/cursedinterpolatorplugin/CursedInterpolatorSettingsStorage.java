@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 @State(
         name = "net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorSettingsStorage",
-        storages = @Storage("CursedInterpolatorSettingsStorage.xml")
+        storages = @Storage("cursed_interpolator.xml")
 )
 public class CursedInterpolatorSettingsStorage implements PersistentStateComponent<CursedInterpolatorSettingsStorage> {
 
