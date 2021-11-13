@@ -1,20 +1,19 @@
 package net.waterfallflower.cursedinterpolatorplugin.settings;
 
-import bspkrs.mmv.gui.BrowseActionListener;
+
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory;
-import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
-import net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorSettingsStorage;
+import com.intellij.ui.JBColor;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CursedInterpolatorSettingsForm {
     private JPanel mainPanel;
     private JLabel MCP_LOC_LABEL;
-    private ComboBox<String> MCP_LOC_BOX;
-    private JButton MCP_LOC_BROWSE;
+    private TextFieldWithBrowseButton MCP_LOC_BOX;
     private JLabel MAPPINGS_LABEL;
     private JPanel mainSettingsLabel;
     private JPanel mainInfo;
@@ -36,11 +35,11 @@ public class CursedInterpolatorSettingsForm {
     }
 
     public String getBoxString() {
-        return (String) MCP_LOC_BOX.getSelectedItem();
+        return MCP_LOC_BOX.getText();
     }
 
     public void setBoxString(String s) {
-        MCP_LOC_BOX.setSelectedItem(s);
+        MCP_LOC_BOX.setText(s);
     }
 
     public boolean useTinyOrGithub() {
@@ -74,14 +73,17 @@ public class CursedInterpolatorSettingsForm {
 
     private void checkStatus1() {
         for(Component q : SUB_TINY_FILE.getComponents())
-            q.setEnabled(USE_TINY_FILE.isSelected());
+            if(!q.getName().startsWith("USE_"))
+                q.setEnabled(USE_TINY_FILE.isSelected());
 
         for(Component q : SUB_GITHUB_COMMIT.getComponents())
-            q.setEnabled(USE_GITHUB_COMMIT.isSelected());
+            if(!q.getName().startsWith("USE_"))
+                q.setEnabled(USE_GITHUB_COMMIT.isSelected());
     }
 
     public CursedInterpolatorSettingsForm() {
-        MCP_LOC_BROWSE.addActionListener(new BrowseActionListener(MCP_LOC_BOX, true, MCP_LOC_BROWSE, true, CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION));
+        MCP_LOC_BOX.addBrowseFolderListener("Select MCP Folder", "", null, FileChooserDescriptorFactory.createSingleFolderDescriptor());
+        TINY_FILE_FIELD.addBrowseFolderListener("Select Tiny Mappings File", "", null, FileChooserDescriptorFactory.createSingleFileNoJarsDescriptor());
 
         NOTE_LABEL.addMouseListener(new MouseAdapter() {
             @Override
@@ -94,11 +96,9 @@ public class CursedInterpolatorSettingsForm {
             }
         });
         NOTE_LABEL.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        NOTE_LABEL.setForeground(Color.BLUE);
+        NOTE_LABEL.setForeground(JBColor.BLUE);
 
         USE_TINY_FILE.addItemListener(itemEvent -> checkStatus1());
         USE_GITHUB_COMMIT.addItemListener(itemEvent -> checkStatus1());
-
-        TINY_FILE_FIELD.addBrowseFolderListener("Select .tiny File!", "", null, FileChooserDescriptorFactory.createSingleFileNoJarsDescriptor());
     }
 }

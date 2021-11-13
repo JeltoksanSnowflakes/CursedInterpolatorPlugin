@@ -1,6 +1,7 @@
 package net.waterfallflower.cursedinterpolatorplugin;
 
 import bspkrs.mmv.gui.MappingGui;
+import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
@@ -10,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
-public class CursedInterpolatorWindowFactory implements ToolWindowFactory {
+public class CursedInterpolatorWindowFactory implements ToolWindowFactory, DumbAware {
 
     public MappingGui GUI;
 

@@ -17,11 +17,7 @@
  */
 package bspkrs.mmv;
 
-import net.fabricmc.mappings.ClassEntry;
-import net.fabricmc.mappings.EntryTriple;
-import net.fabricmc.mappings.FieldEntry;
-import net.fabricmc.mappings.Mappings;
-import net.fabricmc.mappings.MethodEntry;
+import net.fabricmc.mappings.*;
 import net.glasslauncher.cursedinterpolator.objects.ClassMappingEntry;
 import net.glasslauncher.cursedinterpolator.objects.MappingEntry;
 
@@ -29,14 +25,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
+import java.util.*;
 
 public class SrgFile {
     public final Map<String, ClassSrgData> srgName2ClassData = new TreeMap<>();            // full/pkg/ClassSrgName -> ClassSrgData

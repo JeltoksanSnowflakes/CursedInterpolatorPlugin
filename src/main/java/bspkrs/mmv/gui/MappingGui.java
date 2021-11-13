@@ -24,82 +24,29 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.table.JBTable;
 import immibis.bon.IProgressListener;
-import immibis.bon.gui.Reference;
 import immibis.bon.gui.Side;
-import net.glasslauncher.cursedinterpolator.gui.VersionDownloadPanel;
 import net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorSettingsStorage;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JEditorPane;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
-import javax.swing.JSplitPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.RowSorter;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.SortOrder;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.Desktop;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.datatransfer.StringSelection;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.prefs.Preferences;
 
 public class MappingGui extends JFrame {
-    public static final String VERSION_NUMBER = MappingGui.class.getPackage().getImplementationVersion();
     private static final long serialVersionUID = 1L;
-    private final static String PREFS_KEY_MCPDIR = "mcpDir";
-    private final static String PREFS_KEY_SIDE = "side";
+
     private final static String PREFS_KEY_CLASS_SORT = "classSort";
     private final static String PREFS_KEY_METHOD_SORT = "methodSort";
     private final static String PREFS_KEY_FIELD_SORT = "fieldSort";
     private final Preferences prefs = Preferences.userNodeForPackage(MappingGui.class);
-    private final String mcfTopic = "http://www.minecraftforum.net/topic/2115030-";
     public JFrame frmMcpMappingViewer;
     public JButton btnRefreshTables;
     private JComboBox<Side> cmbSide;
@@ -268,7 +215,8 @@ public class MappingGui extends JFrame {
 
     private void savePrefs() {
 
-        prefs.put(PREFS_KEY_SIDE, Objects.requireNonNull(cmbSide.getSelectedItem()).toString());
+        //TODO: Rework.
+        CursedInterpolatorSettingsStorage.getInstance().GUI_SIDE = Objects.requireNonNull(cmbSide.getSelectedItem()).toString();
 
         if (tblClasses.getRowSorter().getSortKeys().size() > 0) {
             int i = tblClasses.getRowSorter().getSortKeys().get(0).getColumn() + 1;
@@ -294,8 +242,10 @@ public class MappingGui extends JFrame {
 
     private void loadPrefs() {
         try {
-            Side side = Side.valueOf(prefs.get(PREFS_KEY_SIDE, Side.Universal.toString()));
+            //TODO: Rework.
+            Side side = Side.valueOf(CursedInterpolatorSettingsStorage.getInstance().GUI_SIDE);
             cmbSide.setSelectedItem(side);
+            //
 
             classSort.clear();
             methodSort.clear();
@@ -333,7 +283,7 @@ public class MappingGui extends JFrame {
                 savePrefs();
             }
         });
-        frmMcpMappingViewer.setTitle("Cursed Interpolator " + VERSION_NUMBER);
+
         frmMcpMappingViewer.setBounds(100, 100, 955, 621);
         frmMcpMappingViewer.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frmMcpMappingViewer.getContentPane().setLayout(new BorderLayout(0, 0));
@@ -467,38 +417,6 @@ public class MappingGui extends JFrame {
         separator.setPreferredSize(new Dimension(1, 12));
         separator.setOrientation(SwingConstants.VERTICAL);
         pnlFilter.add(separator);
-
-        JLabel lblAbout = new JLabel("About");
-        pnlFilter.add(lblAbout);
-        lblAbout.setForeground(Color.BLUE);
-        lblAbout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        lblAbout.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                String message = "<center>Cursed Interpolator " + VERSION_NUMBER + "<br/>" +
-                        "Copyright (C) 2013 bspkrs<br/>" +
-                        "Portions Copyright (C) 2013 Alex \"immibis\" Campbell<br/><br/>" +
-                        "Author: calmilamsy<br/><br/>" +
-                        "<h3>Credits:</h3>" +
-                        "bspkrs (for the <a href=\"https://github.com/bspkrs/MCPMappingViewer\">program this is a fork of</a>), " +
-                        "immibis (for <a href=\"https://github.com/immibis/bearded-octo-nemesis\">BON</a> code), " +
-                        "Searge et al (for <a href=\"http://mcp.ocean-labs.de\">MCP</a>),<br/>" +
-                        "Fabric (for <a href=\"https://fabricmc.net\">Enigma</a>), " +
-                        "Cursed Fabric (for <a href=\"https://minecraft-cursed-legacy.github.io/\">Their unified b1.7.3 JAR</a>)<br/><br/>" +
-                        "<h3>Cursed Interpolator Links:</h3>" +
-                        "<a href=\"https://github.com/calmilamsy/cursed-interpolator\">Github Repo</a><br/>" +
-                        "<a href=\"https://github.com/calmilamsy/cursed-interpolator/blob/master/change.log\">Change Log</a><br/>" +
-                        "<a href=\"https://github.com/calmilamsy/cursed-interpolator/releases\">Binary Downloads</a><br/>" +
-                        "<h3>MCP Mapping Viewer links:</h3>" +
-                        "<a href=\"" + mcfTopic + "\">MCF Thread</a><br/>" +
-                        "<a href=\"https://github.com/bspkrs/MCPMappingViewer\">Github Repo</a><br/>" +
-                        "<a href=\"https://github.com/bspkrs/MCPMappingViewer/blob/master/change.log\">Change Log</a><br/>" +
-                        "<a href=\"http://bspk.rs/MC/MCPMappingViewer/index.html\">Binary Downloads</a><br/>" +
-                        "<a href=\"https://raw.github.com/bspkrs/MCPMappingViewer/master/LICENSE\">License</a><br/>" +
-                        "<a href=\"https://twitter.com/bspkrs\">bspkrs on Twitter</a></center>";
-                showHTMLDialog(MappingGui.this, message, "About Cursed Interpolator", JOptionPane.PLAIN_MESSAGE);
-            }
-        });
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -648,21 +566,6 @@ public class MappingGui extends JFrame {
                 JOptionPane.showMessageDialog(MappingGui.this, error, "MMV - Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
-            //TODO: Implement this one.
-            /*
-            if (cmbMCPDirPath.getSelectedIndex() != 0) {
-                String selItem = (String) cmbMCPDirPath.getSelectedItem();
-                DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) cmbMCPDirPath.getModel();
-
-                if (model.getIndexOf(selItem) != -1)
-                    model.removeElement(selItem);
-
-                cmbMCPDirPath.insertItemAt(selItem, 0);
-                cmbMCPDirPath.setSelectedItem(selItem);
-            }
-
-             */
 
             savePrefs();
 

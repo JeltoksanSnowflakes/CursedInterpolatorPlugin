@@ -5,7 +5,7 @@ import net.glasslauncher.common.FileUtils;
 import net.glasslauncher.cursedinterpolator.objects.GithubCommit;
 
 import javax.swing.*;
-import java.awt.Dimension;
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

@@ -14,16 +14,17 @@ import org.jetbrains.annotations.Nullable;
 )
 public class CursedInterpolatorSettingsStorage implements PersistentStateComponent<CursedInterpolatorSettingsStorage> {
 
-    public String MCP_LOCATION = "";
 
     /**
      * true -> Custom .tiny file.
      * false -> Github commit.
      */
     public boolean USE_TINY_OR_GITHUB = false;
-
+    public String MCP_LOCATION = "";
     public String TINY_FILE_LOCATION = "";
     public String MAPPINGS_INFO = "";
+
+    public String GUI_SIDE = "CLIENT";
 
     @Override
     public @Nullable CursedInterpolatorSettingsStorage getState() {
