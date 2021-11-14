@@ -25,16 +25,14 @@ public class MappingsViewerToolWindow extends JFrame {
     private final ToolWindow TOOL_WINDOW_INSTANCE;
 
     public Thread FRAME_THREAD_SECOND;
-
     public McpMappingLoader CURRENT_INSTANCE;
 
-    public JTable TABLE_CLASSES;
-    public JTable TABLE_METHODS;
-    public JTable TABLE_FIELDS;
+    public JBTable TABLE_CLASSES;
+    public JBTable TABLE_METHODS;
+    public JBTable TABLE_FIELDS;
 
     public JPanel PANEL_PROGRESSBAR;
     public JProgressBar BAR_PROGRESSBAR;
-    public JPanel PANEL_TOP;
 
     public JTextField FIELD_TABLE_SEARCH;
     public JButton BUTTON_TABLE_SEARCH;
@@ -126,13 +124,33 @@ public class MappingsViewerToolWindow extends JFrame {
         CONTROLS.setSize(new Dimension(0, 40));
         CONTROLS.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 2));
 
-        //Remove
-        JLabel lblSide = new JLabel("Side");
-        CONTROLS.add(lblSide);
-
         BOX_TABLE_SIDE = new ComboBox<>();
         BOX_TABLE_SIDE.setModel(new DefaultComboBoxModel<>(Side.values()));
         CONTROLS.add(BOX_TABLE_SIDE);
+
+        FIELD_TABLE_SEARCH = new JTextField();
+        FIELD_TABLE_SEARCH.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                FIELD_TABLE_SEARCH.select(0, FIELD_TABLE_SEARCH.getText().length());
+            }
+        });
+        FIELD_TABLE_SEARCH.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER)
+                    BUTTON_TABLE_SEARCH.doClick();
+            }
+        });
+        CONTROLS.add(FIELD_TABLE_SEARCH);
+        FIELD_TABLE_SEARCH.setColumns(40);
+
+        BUTTON_TABLE_SEARCH = new JButton("Search");
+        BUTTON_TABLE_SEARCH.setToolTipText("");
+        BUTTON_TABLE_SEARCH.addActionListener(new SearchActionListener(this));
+        CONTROLS.add(BUTTON_TABLE_SEARCH);
+        FIELD_TABLE_SEARCH.setEnabled(false);
+        BUTTON_TABLE_SEARCH.setEnabled(false);
 
         BUTTON_REFRESH_TABLE = new JButton("Reload/Load");
         BUTTON_REFRESH_TABLE.addActionListener(new RefreshActionListener(this));
@@ -149,79 +167,33 @@ public class MappingsViewerToolWindow extends JFrame {
         BAR_PROGRESSBAR.setForeground(UIManager.getColor("ProgressBar.foreground"));
         PANEL_PROGRESSBAR.add(BAR_PROGRESSBAR);
 
-        PANEL_TOP = new JPanel();
-        FlowLayout flowLayout = (FlowLayout) PANEL_TOP.getLayout();
-        flowLayout.setVgap(2);
-        flowLayout.setAlignment(FlowLayout.LEFT);
-        PANEL_TOP.setVisible(true);
-        HEADER.add(PANEL_TOP, BorderLayout.CENTER);
-
-        //Remove
-        JLabel lblFilter = new JLabel("Search");
-        PANEL_TOP.add(lblFilter);
-
-        FIELD_TABLE_SEARCH = new JTextField();
-        FIELD_TABLE_SEARCH.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                FIELD_TABLE_SEARCH.select(0, FIELD_TABLE_SEARCH.getText().length());
-            }
-        });
-        FIELD_TABLE_SEARCH.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER)
-                    BUTTON_TABLE_SEARCH.doClick();
-            }
-        });
-        PANEL_TOP.add(FIELD_TABLE_SEARCH);
-        FIELD_TABLE_SEARCH.setColumns(40);
-
-        BUTTON_TABLE_SEARCH = new JButton("Search");
-        BUTTON_TABLE_SEARCH.setToolTipText("");
-        BUTTON_TABLE_SEARCH.addActionListener(new SearchActionListener(this));
-        PANEL_TOP.add(BUTTON_TABLE_SEARCH);
-        FIELD_TABLE_SEARCH.setEnabled(false);
-        BUTTON_TABLE_SEARCH.setEnabled(false);
-
         JSeparator SEPARATOR = new JSeparator();
         SEPARATOR.setPreferredSize(new Dimension(1, 12));
         SEPARATOR.setOrientation(SwingConstants.VERTICAL);
-        PANEL_TOP.add(SEPARATOR);
+        HEADER.add(SEPARATOR);
 
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                savePrefs();
-            }
-        });
         loadPrefs();
     }
 
 
     public void savePrefs() {
-
-        //TODO: Rework.
         CursedInterpolatorSettingsStorage.getInstance().GUI_SIDE = Objects.requireNonNull(BOX_TABLE_SIDE.getSelectedItem()).toString();
 
         if (TABLE_CLASSES.getRowSorter().getSortKeys().size() > 0) {
             int i = TABLE_CLASSES.getRowSorter().getSortKeys().get(0).getColumn() + 1;
-            SortOrder order = TABLE_CLASSES.getRowSorter().getSortKeys().get(0).getSortOrder();
-            CursedInterpolatorSettingsStorage.getInstance().CLASS_SORT = order == SortOrder.DESCENDING ? i * -1 : i;
+            CursedInterpolatorSettingsStorage.getInstance().CLASS_SORT = TABLE_CLASSES.getRowSorter().getSortKeys().get(0).getSortOrder() == SortOrder.DESCENDING ? i * -1 : i;
         } else
             CursedInterpolatorSettingsStorage.getInstance().CLASS_SORT = 1;
 
         if (TABLE_METHODS.getRowSorter().getSortKeys().size() > 0) {
             int i = TABLE_METHODS.getRowSorter().getSortKeys().get(0).getColumn() + 1;
-            SortOrder order = TABLE_METHODS.getRowSorter().getSortKeys().get(0).getSortOrder();
-            CursedInterpolatorSettingsStorage.getInstance().METHOD_SORT = order == SortOrder.DESCENDING ? i * -1 : i;
+            CursedInterpolatorSettingsStorage.getInstance().METHOD_SORT = TABLE_METHODS.getRowSorter().getSortKeys().get(0).getSortOrder() == SortOrder.DESCENDING ? i * -1 : i;
         } else
             CursedInterpolatorSettingsStorage.getInstance().METHOD_SORT = 1;
 
         if (TABLE_FIELDS.getRowSorter().getSortKeys().size() > 0) {
             int i = TABLE_FIELDS.getRowSorter().getSortKeys().get(0).getColumn() + 1;
-            SortOrder order = TABLE_FIELDS.getRowSorter().getSortKeys().get(0).getSortOrder();
-            CursedInterpolatorSettingsStorage.getInstance().FIELD_SORT = order == SortOrder.DESCENDING ? i * -1 : i;
+            CursedInterpolatorSettingsStorage.getInstance().FIELD_SORT = TABLE_FIELDS.getRowSorter().getSortKeys().get(0).getSortOrder() == SortOrder.DESCENDING ? i * -1 : i;
         } else
             CursedInterpolatorSettingsStorage.getInstance().FIELD_SORT = 1;
     }

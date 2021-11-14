@@ -62,7 +62,7 @@ public class CustomChildClasspath {
     /**
      * Used in anonymous classes or in stuff that doesn't directly extend this class.
      */
-    //@IndirectUse
+    @IndirectUse
     protected void register() {
     }
 }

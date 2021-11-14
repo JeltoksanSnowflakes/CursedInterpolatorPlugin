@@ -49,7 +49,6 @@ public class RefreshActionListener implements ActionListener {
 
         window.savePrefs();
 
-        window.PANEL_TOP.setVisible(false);
         window.PANEL_PROGRESSBAR.setVisible(true);
         window.TABLE_CLASSES.setModel(TableModels.classesDefaultModel);
         window.TABLE_CLASSES.setEnabled(false);
@@ -133,7 +132,6 @@ public class RefreshActionListener implements ActionListener {
                     });
                 }
                 window.PANEL_PROGRESSBAR.setVisible(false);
-                window.PANEL_TOP.setVisible(true);
                 window.BUTTON_TABLE_SEARCH.setEnabled(true);
                 window.FIELD_TABLE_SEARCH.setEnabled(true);
             }

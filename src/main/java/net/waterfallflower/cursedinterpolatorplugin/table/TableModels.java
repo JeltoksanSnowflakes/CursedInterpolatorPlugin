@@ -45,7 +45,10 @@ public class TableModels {
     ) {
         private static final long serialVersionUID = 1L;
         final Class<?>[] columnTypes = new Class[] {
-                String.class, String.class, String.class, Boolean.class
+                String.class,
+                String.class,
+                String.class,
+                Boolean.class
         };
 
         @Override
@@ -72,7 +75,12 @@ public class TableModels {
         private static final long serialVersionUID = 1L;
 
         final Class<?>[] columnTypes = new Class[]{
-                String.class, String.class, String.class, String.class, String.class, Boolean.class
+                String.class,
+                String.class,
+                String.class,
+                String.class,
+                String.class,
+                Boolean.class
         };
 
         @Override
