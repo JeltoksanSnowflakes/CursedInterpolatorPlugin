@@ -32,15 +32,13 @@ public class RefreshActionListener implements ActionListener {
 
         final Side side = Objects.requireNonNull((Side) window.BOX_TABLE_SIDE.getSelectedItem());
 
-        final File mcpDir = new File(CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION);
-
         String error = null;
 
-        if (!(new File(mcpDir, "conf/interpolator/mappings.tiny")).exists())
+        if (!CursedInterpolatorSettingsStorage.getMappings().exists())
             error = "Cursed mapping have not been set up!";
 
-        if (!mcpDir.isDirectory())
-            error = "Folder not found (at " + mcpDir + ")";
+        if (!new File(CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION).isDirectory())
+            error = "Folder not found (at " + CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION + ")";
 
         if (error != null) {
             JOptionPane.showMessageDialog(window, error, "MMV - Error", JOptionPane.ERROR_MESSAGE);
@@ -86,7 +84,7 @@ public class RefreshActionListener implements ActionListener {
                     }
                 };
 
-                window.CURRENT_INSTANCE = new McpMappingLoader(side, mcpDir, progress);
+                window.CURRENT_INSTANCE = new McpMappingLoader(side, new File(CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION), progress);
                 window.TABLE_CLASSES.setModel(window.CURRENT_INSTANCE.getClassModel());
                 window.TABLE_CLASSES.setEnabled(true);
                 new TableColumnAdjuster(window.TABLE_CLASSES).adjustColumns();

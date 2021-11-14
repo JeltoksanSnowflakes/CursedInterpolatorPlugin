@@ -8,6 +8,8 @@ import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.File;
+
 @State(
         name = "net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorSettingsStorage",
         storages = @Storage("cursed_interpolator.xml")
@@ -41,5 +43,11 @@ public class CursedInterpolatorSettingsStorage implements PersistentStateCompone
 
     public static CursedInterpolatorSettingsStorage getInstance() {
         return ApplicationManager.getApplication().getService(CursedInterpolatorSettingsStorage.class);
+    }
+
+    public static File getMappings() {
+        if(getInstance().USE_TINY_OR_GITHUB)
+            return new File(getInstance().TINY_FILE_LOCATION);
+        return new File(getInstance().MCP_LOCATION, "conf/interpolator/mappings.tiny");
     }
 }

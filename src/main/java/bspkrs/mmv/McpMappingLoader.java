@@ -20,6 +20,7 @@ import immibis.bon.IProgressListener;
 import immibis.bon.gui.Side;
 import net.fabricmc.mappings.Mappings;
 import net.fabricmc.mappings.MappingsProvider;
+import net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorSettingsStorage;
 
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
@@ -31,12 +32,6 @@ import java.util.Map.Entry;
 
 public class McpMappingLoader {
 
-    public static final Comparator<String> OBF_COMPARATOR = (o1, o2) -> {
-        if (o1.length() != o2.length())
-            return o1.length() - o2.length();
-        else
-            return o1.compareTo(o2);
-    };
     public final Map<MethodSrgData, CsvData> srgMethodData2CsvData = new TreeMap<>();
     public final Map<FieldSrgData, CsvData> srgFieldData2CsvData = new TreeMap<>();
     private final File mcpDir;
@@ -90,7 +85,7 @@ public class McpMappingLoader {
             progress.setMax(4);
         if (progress != null)
             progress.set(0);
-        Mappings mappings = MappingsProvider.readTinyMappings(new FileInputStream(new File(mcpDir, "conf/interpolator/mappings.tiny")));
+        Mappings mappings = MappingsProvider.readTinyMappings(new FileInputStream(CursedInterpolatorSettingsStorage.getMappings()));
         if (progress != null)
             progress.set(1);
         loadCSVMapping();
