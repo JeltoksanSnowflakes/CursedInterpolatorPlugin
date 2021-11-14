@@ -1,5 +1,6 @@
 package net.waterfallflower.cursedinterpolatorplugin.api;
 
+import lombok.Getter;
 import net.waterfallflower.cursedinterpolatorplugin.cursed.UnknownUnexpectedAppletMinecraft;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,6 +16,7 @@ import java.util.Arrays;
  */
 public class CustomChildClasspath {
 
+    @Getter
     protected URLClassLoader CLASSLOADER_;
 
     public @NotNull URL[] toURL(@NotNull File... f) throws MalformedURLException {

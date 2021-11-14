@@ -4,7 +4,9 @@ package net.waterfallflower.cursedinterpolatorplugin.settings;
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.ui.JBColor;
+import lombok.Getter;
 import net.waterfallflower.cursedinterpolatorplugin.api.IndirectUse;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class CursedInterpolatorSettingsForm {
+    @Getter
     private JPanel mainPanel;
     @IndirectUse
     private JLabel MCP_LOC_LABEL;
@@ -38,16 +41,11 @@ public class CursedInterpolatorSettingsForm {
     @IndirectUse
     private JPanel MCP_GENERAL;
 
-
-    public JPanel getMainPanel() {
-        return mainPanel;
-    }
-
     public String getBoxString() {
         return MCP_LOC_BOX.getText();
     }
 
-    public void setBoxString(String s) {
+    public void setBoxString(@NotNull String s) {
         MCP_LOC_BOX.setText(s);
     }
 
@@ -66,7 +64,7 @@ public class CursedInterpolatorSettingsForm {
         return TINY_FILE_FIELD.getText();
     }
 
-    public void setTinyFileLocation(String s) {
+    public void setTinyFileLocation(@NotNull String s) {
         TINY_FILE_FIELD.setText(s);
     }
 
@@ -74,13 +72,11 @@ public class CursedInterpolatorSettingsForm {
         return GITHUB_COMMIT_FIELD.getText();
     }
 
-    public void setGithubCommitLocation(String s) {
+    public void setGithubCommitLocation(@NotNull String s) {
         GITHUB_COMMIT_FIELD.setText(s);
     }
 
-
-
-    private void checkStatus1() {
+    private void checkMappingsUIStatus() {
         for(Component q : SUB_TINY_FILE.getComponents())
             if(!(q instanceof JRadioButton))
                 q.setEnabled(USE_TINY_FILE.isSelected());
@@ -97,17 +93,18 @@ public class CursedInterpolatorSettingsForm {
         NOTE_LABEL.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String message = "Search is global and returns a set of classes that contain a match for the input. \n" +
-                        "Search is case sensitive!\n\nData elements searched on:\n" +
-                        "Classes:\n    ~ Pkg Name\n    ~ SRG Name\n    ~ Obf Name\n" +
-                        "Methods/Fields:\n    ~ SRG Name\n    ~ Obf Name\n    ~ MCP Name\n    ~ Comment";
-                JOptionPane.showMessageDialog(null, message, "Search Info", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null,
+                        "Search is global and returns a set of classes that contain a match for the input. \n" +
+                                "Search is case sensitive!\n\nData elements searched on:\n" +
+                                "Classes:\n    ~ Pkg Name\n    ~ SRG Name\n    ~ Obf Name\n" +
+                                "Methods/Fields:\n    ~ SRG Name\n    ~ Obf Name\n    ~ MCP Name\n    ~ Comment"
+                        , "Search Info", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         NOTE_LABEL.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         NOTE_LABEL.setForeground(JBColor.BLUE);
 
-        USE_TINY_FILE.addItemListener(itemEvent -> checkStatus1());
-        USE_GITHUB_COMMIT.addItemListener(itemEvent -> checkStatus1());
+        USE_TINY_FILE.addItemListener(itemEvent -> checkMappingsUIStatus());
+        USE_GITHUB_COMMIT.addItemListener(itemEvent -> checkMappingsUIStatus());
     }
 }

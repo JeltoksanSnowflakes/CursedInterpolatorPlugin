@@ -23,11 +23,22 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
     compile "com.github.chocohead:tiny-mappings-parser:d96d407"
     implementation 'com.google.code.gson:gson:2.8.6'
     compile 'com.github.calmilamsy:glass-commons:4aa5302a2d'
+
+    //Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+    //Junit
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
+    //Lombok
+    testCompileOnly 'org.projectlombok:lombok:1.18.22'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
