@@ -4,6 +4,7 @@ package net.waterfallflower.cursedinterpolatorplugin.settings;
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.ui.JBColor;
+import net.waterfallflower.cursedinterpolatorplugin.api.IndirectUse;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,21 +13,29 @@ import java.awt.event.MouseEvent;
 
 public class CursedInterpolatorSettingsForm {
     private JPanel mainPanel;
+    @IndirectUse
     private JLabel MCP_LOC_LABEL;
     private TextFieldWithBrowseButton MCP_LOC_BOX;
+    @IndirectUse
     private JLabel MAPPINGS_LABEL;
+    @IndirectUse
     private JPanel mainSettingsLabel;
+    @IndirectUse
     private JPanel mainInfo;
     private JLabel NOTE_LABEL;
     private JRadioButton USE_TINY_FILE;
     private JRadioButton USE_GITHUB_COMMIT;
     private JPanel SUB_TINY_FILE;
     private JPanel SUB_GITHUB_COMMIT;
+    @IndirectUse
     private JLabel TINY_FILE_LABEL;
     private TextFieldWithBrowseButton TINY_FILE_FIELD;
+    @IndirectUse
     private JLabel MCP_LOC_L2;
+    @IndirectUse
     private JLabel GITHUB_COMMIT_LABEL;
     private JTextField GITHUB_COMMIT_FIELD;
+    @IndirectUse
     private JPanel MCP_GENERAL;
 
 
@@ -73,11 +82,11 @@ public class CursedInterpolatorSettingsForm {
 
     private void checkStatus1() {
         for(Component q : SUB_TINY_FILE.getComponents())
-            if(!q.getName().startsWith("USE_"))
+            if(!(q instanceof JRadioButton))
                 q.setEnabled(USE_TINY_FILE.isSelected());
 
         for(Component q : SUB_GITHUB_COMMIT.getComponents())
-            if(!q.getName().startsWith("USE_"))
+            if(!(q instanceof JRadioButton))
                 q.setEnabled(USE_GITHUB_COMMIT.isSelected());
     }
 

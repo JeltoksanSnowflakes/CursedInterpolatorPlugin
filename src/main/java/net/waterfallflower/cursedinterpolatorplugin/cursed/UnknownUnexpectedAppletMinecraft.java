@@ -1,5 +1,8 @@
 package net.waterfallflower.cursedinterpolatorplugin.cursed;
 
+import net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorSettingsStorage;
+import net.waterfallflower.cursedinterpolatorplugin.api.CustomChildClasspath;
+
 import javax.swing.*;
 import java.applet.Applet;
 import java.applet.AppletContext;
@@ -7,66 +10,32 @@ import java.applet.AppletStub;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.Arrays;
 
+@SuppressWarnings("deprecation")
 public class UnknownUnexpectedAppletMinecraft extends JApplet {
 
-    static {
-        addToClasspath(new File("F:\\WORKSPACES\\1.7.3-LTS-master\\jars\\bin\\a1.1.11_10.jar"),
-                new File("F:\\WORKSPACES\\1.7.3-LTS-master\\jars\\bin\\a1.1.2_01.jar"),
-                new File("F:\\WORKSPACES\\1.7.3-LTS-master\\jars\\bin\\lwjgl_util.jar"),
-                new File("F:\\WORKSPACES\\1.7.3-LTS-master\\jars\\bin\\lwjgl.jar"),
-                new File("F:\\WORKSPACES\\1.7.3-LTS-master\\jars\\bin\\jinput.jar"));
-        addLibraryPath("F:\\WORKSPACES\\1.7.3-LTS-master\\jars\\bin\\natives");
-    }
-
-    public static URLClassLoader CLASSLOADER_;
-    public static URL[] toURL(File... files) throws MalformedURLException {
-        URL[] send = new URL[files.length];
-        for(int i = 0; i < files.length; i++) {
-            send[i] = files[i].toURI().toURL();
-        }
-        return send;
-    }
-
-    public static void addToClasspath(File... file) {
-        try {
-            CLASSLOADER_ = new URLClassLoader(toURL(file), UnknownUnexpectedAppletMinecraft.class.getClassLoader());
-        } catch (Exception ex) {
-            throw new RuntimeException("Cannot load library from jar file '" + file.toString() + "'. Reason: " + ex.getMessage());
-        }
-    }
-
-    public static void addLibraryPath(String pathToAdd) {
-        try {
-            final Field usrPathsField = ClassLoader.class.getDeclaredField("usr_paths");
-            usrPathsField.setAccessible(true);
-            final String[] paths = (String[])usrPathsField.get(null);
-            for(String path : paths) {
-                if(path.equals(pathToAdd)) {
-                    return;
-                }
-            }
-
-            //add the new path
-            final String[] newPaths = Arrays.copyOf(paths, paths.length + 1);
-            newPaths[newPaths.length-1] = pathToAdd;
-            usrPathsField.set(null, newPaths);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
-
+    private CustomChildClasspath INSTANCE;
 
 
     private Applet getAppletInstance() {
         try {
-            Class<?> c = Class.forName("com.mojang.minecraft.MinecraftApplet", true, CLASSLOADER_);
+            if(INSTANCE == null)
+                INSTANCE = new CustomChildClasspath() {
+                    @Override
+                    protected void register() {
+                        addToClasspath(new File(CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION, "jars/bin/a1.1.11_10.jar"),
+                            new File(CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION,"jars/bin/a1.1.2_01.jar"),
+                            new File(CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION,"jars/bin/lwjgl_util.jar"),
+                            new File(CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION,"jars/bin/lwjgl.jar"),
+                            new File(CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION,"jars/bin/jinput.jar"));
+                        addLibraryPath(new File(CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION, "jars/bin/natives").getAbsolutePath());
+                    }
+                };
+
+            Class<?> c = INSTANCE.fromName("com.mojang.minecraft.MinecraftApplet");
             for(int i = 0; i < c.getDeclaredConstructors().length; i++) {
                 System.out.println(c.getDeclaredConstructors()[i].toGenericString());
             }

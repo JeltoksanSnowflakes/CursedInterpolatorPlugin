@@ -25,6 +25,9 @@ public class CursedInterpolatorSettingsStorage implements PersistentStateCompone
     public String MAPPINGS_INFO = "";
 
     public String GUI_SIDE = "CLIENT";
+    public int CLASS_SORT;
+    public int METHOD_SORT;
+    public int FIELD_SORT;
 
     @Override
     public @Nullable CursedInterpolatorSettingsStorage getState() {
