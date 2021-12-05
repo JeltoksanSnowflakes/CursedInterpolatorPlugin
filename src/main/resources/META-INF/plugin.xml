@@ -4,19 +4,19 @@
     <vendor url="https://github.com/WaterfallFlower">WaterfallFlower</vendor>
 
     <description><![CDATA[
-    CursedInterpolator, but as IntelliJ IDEA plugin.<br/><br/>
+    Cursed-Interpolator, but as IntelliJ IDEA plugin.<br/><br/>
 
-    Original program:<br/>
+    **Original program:**<br/>
     Copyright (C) 2013 bspkrs<br/>
     Portions Copyright (C) 2013 Alex "immibis" Campbell<br/><br/>
 
-    Fabric Mappings adaptation:<br/>
+    **Fabric Mappings adaptation:**<br/>
     calmilamsy<br/><br/>
 
-    Intellij IDEA integration:<br/>
+    **Intellij IDEA integration:**<br/>
     WaterfallFlower<br/><br/>
 
-    <h3>Credits:</h3>
+    **Credits (original application):**
     - bspkrs (<a href="https://github.com/bspkrs/MCPMappingViewer">MCPMappingsViewer</a>);<br/>
     - immibis (<a href="https://github.com/immibis/bearded-octo-nemesis">BON</a>);<br/>
     - Searge et al (<a href="http://mcp.ocean-labs.de">MCP</a>);<br/>
