@@ -1,21 +1,27 @@
-package net.waterfallflower.cursedinterpolatorplugin.table.listener;
+package net.waterfallflower.cursedinterpolatorplugin.interpolator.table.listener;
 
+import bspkrs.mmv.McpMappingLoader;
 import bspkrs.mmv.gui.TableColumnAdjuster;
 import immibis.bon.IProgressListener;
-import net.waterfallflower.cursedinterpolatorplugin.table.MappingsViewerToolWindow;
-import net.waterfallflower.cursedinterpolatorplugin.table.TableHelper;
-import net.waterfallflower.cursedinterpolatorplugin.table.TableModels;
+import immibis.bon.gui.Side;
+import net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorSettingsStorage;
+import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.MappingsViewerToolWindow;
+import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.TableHelper;
+import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.TableModels;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.Objects;
 
-public class SearchActionListener implements ActionListener {
+public class RefreshActionListener implements ActionListener {
 
     private final MappingsViewerToolWindow window;
-    public SearchActionListener(MappingsViewerToolWindow window) {
+
+    public RefreshActionListener(MappingsViewerToolWindow window) {
         this.window = window;
     }
 
@@ -24,10 +30,23 @@ public class SearchActionListener implements ActionListener {
         if (window.FRAME_THREAD_SECOND != null && window.FRAME_THREAD_SECOND.isAlive())
             return;
 
+        final Side side = Objects.requireNonNull((Side) window.BOX_TABLE_SIDE.getSelectedItem());
+
+        String error = null;
+
+        if (!CursedInterpolatorSettingsStorage.getMappings().exists())
+            error = "Cursed mapping have not been set up!";
+
+        if (!new File(CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION).isDirectory())
+            error = "Folder not found (at " + CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION + ")";
+
+        if (error != null) {
+            JOptionPane.showMessageDialog(window, error, "MMV - Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         window.savePrefs();
 
-        window.FIELD_TABLE_SEARCH.setEnabled(false);
-        window.BUTTON_TABLE_SEARCH.setEnabled(false);
         window.PANEL_PROGRESSBAR.setVisible(true);
         window.TABLE_CLASSES.setModel(TableModels.classesDefaultModel);
         window.TABLE_CLASSES.setEnabled(false);
@@ -65,11 +84,28 @@ public class SearchActionListener implements ActionListener {
                     }
                 };
 
-                progress.start(0, "Searching MCP objects for input");
-                window.TABLE_CLASSES.setModel(window.CURRENT_INSTANCE.getSearchResults(window.FIELD_TABLE_SEARCH.getText(), progress));
+                window.CURRENT_INSTANCE = new McpMappingLoader(side, new File(CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION), progress);
+                window.TABLE_CLASSES.setModel(window.CURRENT_INSTANCE.getClassModel());
                 window.TABLE_CLASSES.setEnabled(true);
                 new TableColumnAdjuster(window.TABLE_CLASSES).adjustColumns();
+                //                        TableRowSorter trs = (TableRowSorter) tblClasses.getRowSorter();
+                //                        trs.setComparator(2, McpMappingLoader.OBF_COMPARATOR);
                 window.loadPrefs();
+            } catch (McpMappingLoader.CantLoadMCPMappingException e1) {
+                String s = TableHelper.getStackTraceMessage("", e1);
+
+                System.err.println(s);
+
+                crashed = true;
+
+                final String errMsg = s;
+                SwingUtilities.invokeLater(() -> {
+                    window.BAR_PROGRESSBAR.setString(" ");
+                    window.BAR_PROGRESSBAR.setValue(0);
+
+                    Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(errMsg), null);
+                    JOptionPane.showMessageDialog(window, errMsg, "MMV - Error", JOptionPane.ERROR_MESSAGE);
+                });
             } catch (Exception e1) {
                 String s = TableHelper.getStackTraceMessage("An error has occurred - give calmilamsy this stack trace (which has been copied to the clipboard)\n", e1);
 
@@ -94,8 +130,8 @@ public class SearchActionListener implements ActionListener {
                     });
                 }
                 window.PANEL_PROGRESSBAR.setVisible(false);
-                window.FIELD_TABLE_SEARCH.setEnabled(true);
                 window.BUTTON_TABLE_SEARCH.setEnabled(true);
+                window.FIELD_TABLE_SEARCH.setEnabled(true);
             }
         });
 

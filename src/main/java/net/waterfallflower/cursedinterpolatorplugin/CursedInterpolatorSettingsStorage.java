@@ -25,6 +25,7 @@ public class CursedInterpolatorSettingsStorage implements PersistentStateCompone
     public String MCP_LOCATION = "";
     public String TINY_FILE_LOCATION = "";
     public String MAPPINGS_INFO = "";
+    public String MAPPINGS_COMMIT = "";
 
     public String GUI_SIDE = "CLIENT";
     public int CLASS_SORT;
@@ -48,6 +49,7 @@ public class CursedInterpolatorSettingsStorage implements PersistentStateCompone
     public static File getMappings() {
         if(getInstance().USE_TINY_OR_GITHUB)
             return new File(getInstance().TINY_FILE_LOCATION);
-        return new File(getInstance().MCP_LOCATION, "conf/interpolator/mappings.tiny");
+        return new File(getInstance().MCP_LOCATION, "conf/interpolator/" + getInstance().MAPPINGS_INFO.replace('/', '.') + "-" + getInstance().MAPPINGS_COMMIT.substring(0, 7) + ".tiny");
     }
+
 }

@@ -1,4 +1,4 @@
-package net.waterfallflower.cursedinterpolatorplugin.table;
+package net.waterfallflower.cursedinterpolatorplugin.interpolator.table;
 
 import bspkrs.mmv.McpMappingLoader;
 import com.intellij.openapi.project.Project;
@@ -8,9 +8,9 @@ import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.table.JBTable;
 import immibis.bon.gui.Side;
 import net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorSettingsStorage;
-import net.waterfallflower.cursedinterpolatorplugin.table.listener.ClassTableSelectionListener;
-import net.waterfallflower.cursedinterpolatorplugin.table.listener.RefreshActionListener;
-import net.waterfallflower.cursedinterpolatorplugin.table.listener.SearchActionListener;
+import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.listener.ClassTableSelectionListener;
+import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.listener.RefreshActionListener;
+import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.listener.SearchActionListener;
 
 import javax.swing.*;
 import java.awt.*;

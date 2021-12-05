@@ -1,7 +1,6 @@
-package net.waterfallflower.cursedinterpolatorplugin.cursed;
+package net.waterfallflower.cursedinterpolatorplugin.interpolator.cursed;
 
 import net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorSettingsStorage;
-import net.waterfallflower.cursedinterpolatorplugin.api.CustomChildClasspath;
 
 import javax.swing.*;
 import java.applet.Applet;
@@ -14,7 +13,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-@SuppressWarnings("deprecation")
+@Deprecated
+@SuppressWarnings({"deprecation", "all"})
 public class UnknownUnexpectedAppletMinecraft extends JApplet {
 
     private CustomChildClasspath INSTANCE;
@@ -25,21 +25,23 @@ public class UnknownUnexpectedAppletMinecraft extends JApplet {
             if(INSTANCE == null)
                 INSTANCE = new CustomChildClasspath() {
                     @Override
-                    protected void register() {
-                        addToClasspath(new File(CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION, "jars/bin/a1.1.11_10.jar"),
-                            new File(CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION,"jars/bin/a1.1.2_01.jar"),
-                            new File(CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION,"jars/bin/lwjgl_util.jar"),
-                            new File(CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION,"jars/bin/lwjgl.jar"),
-                            new File(CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION,"jars/bin/jinput.jar"));
+                    protected File[] register() {
                         addLibraryPath(new File(CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION, "jars/bin/natives").getAbsolutePath());
+                        return new File[] {
+                                new File(CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION,"jars/bin/minecraft-b1.7.3BTA.jar"),
+                                new File(CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION,"jars/bin/lwjgl_util.jar"),
+                                new File(CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION,"jars/bin/lwjgl_util.jar"),
+                                new File(CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION,"jars/bin/lwjgl.jar"),
+                                new File(CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION,"jars/bin/jinput.jar")
+                        };
                     }
                 };
 
-            Class<?> c = INSTANCE.fromName("com.mojang.minecraft.MinecraftApplet");
+            Class<?> c = INSTANCE.fromName("net.minecraft.client.MinecraftApplet");
             for(int i = 0; i < c.getDeclaredConstructors().length; i++) {
                 System.out.println(c.getDeclaredConstructors()[i].toGenericString());
             }
-            Applet a = (Applet) c.getDeclaredConstructor().newInstance();
+            Applet a = (Applet) c.getDeclaredConstructor(/*EMPTY*/).newInstance(/*EMPTY*/);
             a.setStub(new AppletStub() {
                 @Override
                 public boolean isActive() {
@@ -49,7 +51,7 @@ public class UnknownUnexpectedAppletMinecraft extends JApplet {
                 @Override
                 public URL getDocumentBase() {
                     try {
-                        return new File("F:\\WORKSPACES\\1.7.3-LTS-master\\jars\\bin\\wtfhtml.html").toURI().toURL();
+                        return new File(CursedInterpolatorSettingsStorage.getInstance().MCP_LOCATION,"jars/bin/wtfhtml.html").toURI().toURL();
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
                         return null;
@@ -128,10 +130,5 @@ public class UnknownUnexpectedAppletMinecraft extends JApplet {
 
     @Override
     public void init() {
-    }
-
-    @Override
-    public void destroy() {
-        super.destroy();
     }
 }

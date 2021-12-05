@@ -1,8 +1,8 @@
-package net.waterfallflower.cursedinterpolatorplugin.table.listener;
+package net.waterfallflower.cursedinterpolatorplugin.interpolator.table.listener;
 
 import bspkrs.mmv.gui.TableColumnAdjuster;
-import net.waterfallflower.cursedinterpolatorplugin.table.MappingsViewerToolWindow;
-import net.waterfallflower.cursedinterpolatorplugin.table.TableModels;
+import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.MappingsViewerToolWindow;
+import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.TableModels;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;

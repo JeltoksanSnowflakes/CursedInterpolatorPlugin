@@ -1,4 +1,4 @@
-package net.waterfallflower.cursedinterpolatorplugin.table;
+package net.waterfallflower.cursedinterpolatorplugin.interpolator.table;
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;

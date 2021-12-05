@@ -6,6 +6,7 @@ plugins {
 group 'net.waterfallflower'
 version '1.0-SNAPSHOT'
 
+sourceSets.main.java.srcDirs 'src/main/gen'
 repositories {
     mavenCentral()
     maven {

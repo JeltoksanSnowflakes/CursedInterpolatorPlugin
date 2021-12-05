@@ -1,7 +1,7 @@
-package net.waterfallflower.cursedinterpolatorplugin.api;
+package net.waterfallflower.cursedinterpolatorplugin.interpolator.cursed;
 
 import lombok.Getter;
-import net.waterfallflower.cursedinterpolatorplugin.cursed.UnknownUnexpectedAppletMinecraft;
+import net.waterfallflower.cursedinterpolatorplugin.api.IndirectUse;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -14,6 +14,8 @@ import java.util.Arrays;
 /**
  * Weird way to bypass java9+ things.
  */
+@Deprecated
+@SuppressWarnings({"deprecation", "all"})
 public class CustomChildClasspath {
 
     @Getter
@@ -65,6 +67,7 @@ public class CustomChildClasspath {
      * Used in anonymous classes or in stuff that doesn't directly extend this class.
      */
     @IndirectUse
-    protected void register() {
+    protected File[] register() {
+        return null;
     }
 }

@@ -1,4 +1,4 @@
-package net.waterfallflower.cursedinterpolatorplugin.settings;
+package net.waterfallflower.cursedinterpolatorplugin.interpolator.settings;
 
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.util.NlsContexts;
@@ -31,7 +31,8 @@ public class CursedInterpolatorConfigurable implements Configurable {
         return !mainLabel.getBoxString().equals(settings.MCP_LOCATION) ||
                 settings.USE_TINY_OR_GITHUB != mainLabel.useTinyOrGithub() ||
                 !mainLabel.getTinyFileLocation().equals(settings.TINY_FILE_LOCATION) ||
-                !mainLabel.getGithubCommitLocation().equals(settings.MAPPINGS_INFO);
+                !mainLabel.getGithubRepo().equals(settings.MAPPINGS_INFO) ||
+                !mainLabel.getGithubCommit().equals(settings.MAPPINGS_COMMIT);
     }
 
     @Override
@@ -40,7 +41,8 @@ public class CursedInterpolatorConfigurable implements Configurable {
         settings.MCP_LOCATION = mainLabel.getBoxString();
         settings.USE_TINY_OR_GITHUB = mainLabel.useTinyOrGithub();
         settings.TINY_FILE_LOCATION = mainLabel.getTinyFileLocation();
-        settings.MAPPINGS_INFO = mainLabel.getGithubCommitLocation();
+        settings.MAPPINGS_INFO = mainLabel.getGithubRepo();
+        settings.MAPPINGS_COMMIT = mainLabel.getGithubCommit();
     }
 
     @Override
@@ -49,6 +51,7 @@ public class CursedInterpolatorConfigurable implements Configurable {
         mainLabel.setBoxString(settings.MCP_LOCATION);
         mainLabel.setTinyOrGithub(settings.USE_TINY_OR_GITHUB);
         mainLabel.setTinyFileLocation(settings.TINY_FILE_LOCATION);
-        mainLabel.setGithubCommitLocation(settings.MAPPINGS_INFO);
+        mainLabel.setGithubRepo(settings.MAPPINGS_INFO);
+        mainLabel.setGithubCommit(settings.MAPPINGS_COMMIT);
     }
 }

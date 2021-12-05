@@ -33,14 +33,13 @@
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorSettingsStorage"/>
         <toolWindow id="Cursed Interpolator" secondary="true" icon="AllIcons.Nodes.DataTables" anchor="right"
-                    factoryClass="net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorWindowFactory"/>
-        <applicationConfigurable parentId="tools" instance="net.waterfallflower.cursedinterpolatorplugin.settings.CursedInterpolatorConfigurable"
-                                 id="net.waterfallflower.cursedinterpolatorplugin.settings.CursedInterpolatorConfigurable"
+                    factoryClass="net.waterfallflower.cursedinterpolatorplugin.interpolator.CursedInterpolatorWindowFactory"/>
+        <applicationConfigurable parentId="tools" instance="net.waterfallflower.cursedinterpolatorplugin.interpolator.settings.CursedInterpolatorConfigurable"
+                                 id="net.waterfallflower.cursedinterpolatorplugin.interpolator.settings.CursedInterpolatorConfigurable"
                                  displayName="Cursed Interpolator"/>
-
         <!-- Delete this -->
-        <toolWindow id="Minecraft a1.1.11_10" secondary="true" icon="AllIcons.FileTypes.Java" anchor="right"
-                    factoryClass="net.waterfallflower.cursedinterpolatorplugin.cursed.ToolWindowAppletMinecraft"/>
+        <!-- <toolWindow id="Minecraft" secondary="true" icon="AllIcons.FileTypes.Java" anchor="right"
+                    factoryClass="net.waterfallflower.cursedinterpolatorplugin.interpolator.cursed.ToolWindowAppletMinecraft"/> -->
     </extensions>
 
     <actions>
