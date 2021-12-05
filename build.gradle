@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'net.waterfallflower'
-version '1.0-SNAPSHOT'
+version '0.1-1.2'
 
 sourceSets.main.java.srcDirs 'src/main/gen'
 repositories {
@@ -43,14 +43,17 @@ dependencies {
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
+//Use only 2021.1.3, smh.
 intellij {
     version = '2021.1.3'
 }
+
 patchPluginXml {
     changeNotes = """
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>"""
+      1.0:<br/>
+      - Initial release.<br/>"""
 }
+
 test {
     useJUnitPlatform()
 }

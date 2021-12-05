@@ -22,6 +22,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class CursedInterpolatorSettingsForm {
     @Getter
@@ -62,6 +63,8 @@ public class CursedInterpolatorSettingsForm {
     private SmallButton COMMIT_INSTALL_ACTION;
     private JLabel ERROR_LABEL;
     private SmallButton COMMIT_RELOAD_ACTION;
+
+    private final ResourceBundle bundle = ResourceBundle.getBundle("CursedInterpolatorLocalisation");
 
     public String getBoxString() {
         return MCP_LOC_BOX.getText();
@@ -118,18 +121,18 @@ public class CursedInterpolatorSettingsForm {
     }
 
     public CursedInterpolatorSettingsForm() {
-        MCP_LOC_BOX.addBrowseFolderListener("Select MCP Folder", "", null, FileChooserDescriptorFactory.createSingleFolderDescriptor());
-        TINY_FILE_FIELD.addBrowseFolderListener("Select Tiny Mappings File", "", null, FileChooserDescriptorFactory.createSingleFileNoJarsDescriptor());
+        MCP_LOC_BOX.addBrowseFolderListener(bundle.getString("dialog.choose_mcp.name"), "", null, FileChooserDescriptorFactory.createSingleFolderDescriptor());
+        TINY_FILE_FIELD.addBrowseFolderListener(bundle.getString("dialog.choose_tiny.name"), "", null, FileChooserDescriptorFactory.createSingleFileNoJarsDescriptor());
 
         NOTE_LABEL.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 JOptionPane.showMessageDialog(null,
-                        "Search is global and returns a set of classes that contain a match for the input. \n" +
-                                "Search is case sensitive!\n\nData elements searched on:\n" +
-                                "Classes:\n    ~ Pkg Name\n    ~ SRG Name\n    ~ Obf Name\n" +
-                                "Methods/Fields:\n    ~ SRG Name\n    ~ Obf Name\n    ~ MCP Name\n    ~ Comment"
-                        , "Search Info", JOptionPane.INFORMATION_MESSAGE);
+                        bundle.getString("note.search") + "\n" +
+                                bundle.getString("note.search.index") + "\n\n" +
+                                bundle.getString("note.search.index_classes") + "\n" +
+                                bundle.getString("note.search.index_methodsfields")
+                        , bundle.getString("dialog.note_search.name"), JOptionPane.INFORMATION_MESSAGE);
             }
         });
 
@@ -196,7 +199,7 @@ public class CursedInterpolatorSettingsForm {
     }
 
     private void setErrorStatus(boolean b) {
-        ERROR_LABEL.setText(b ? "Something went wrong while updating commit list..." : "");
+        ERROR_LABEL.setText(b ? bundle.getString("error.commit") : "");
     }
 
     private void checkMappingsLoaded() {

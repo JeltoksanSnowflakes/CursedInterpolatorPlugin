@@ -18,11 +18,14 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class MappingsViewerToolWindow extends JFrame {
 
     private final Project PROJECT_INSTANCE;
     private final ToolWindow TOOL_WINDOW_INSTANCE;
+
+    private final ResourceBundle bundle = ResourceBundle.getBundle("CursedInterpolatorLocalisation");
 
     public Thread FRAME_THREAD_SECOND;
     public McpMappingLoader CURRENT_INSTANCE;
@@ -145,14 +148,14 @@ public class MappingsViewerToolWindow extends JFrame {
         CONTROLS.add(FIELD_TABLE_SEARCH);
         FIELD_TABLE_SEARCH.setColumns(40);
 
-        BUTTON_TABLE_SEARCH = new JButton("Search");
+        BUTTON_TABLE_SEARCH = new JButton(bundle.getString("button.search.name"));
         BUTTON_TABLE_SEARCH.setToolTipText("");
         BUTTON_TABLE_SEARCH.addActionListener(new SearchActionListener(this));
         CONTROLS.add(BUTTON_TABLE_SEARCH);
         FIELD_TABLE_SEARCH.setEnabled(false);
         BUTTON_TABLE_SEARCH.setEnabled(false);
 
-        BUTTON_REFRESH_TABLE = new JButton("Reload/Load");
+        BUTTON_REFRESH_TABLE = new JButton(bundle.getString("button.reload.name"));
         BUTTON_REFRESH_TABLE.addActionListener(new RefreshActionListener(this));
         CONTROLS.add(BUTTON_REFRESH_TABLE);
 

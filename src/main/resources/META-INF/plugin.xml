@@ -45,4 +45,6 @@
     <actions>
         <!-- Add your actions here -->
     </actions>
+
+    <resource-bundle>CursedInterpolatorLocalisation</resource-bundle>
 </idea-plugin>

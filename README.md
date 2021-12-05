@@ -12,8 +12,8 @@ Warning! Having `Intellij IDEA` is highly recommended getting much more abilitie
 
 The way without `Intellij IDEA` (for building and getting .jar file):
 1. Clone this repository.
-2. Run `./gradlew build` on *nix or `gradlew.bat build` on Windows.
-3. The jar file is created in the `/build/libs` folder. Use the -all file unless you know what you are doing.
+2. Run `./gradlew buildPlugin` on *nix or `gradlew.bat buildPlugin` on Windows.
+3. The jar file is created in the `/build/distributions` folder. Use the -all file unless you know what you are doing.
 
 ## License
 

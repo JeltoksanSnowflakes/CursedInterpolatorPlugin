@@ -2,13 +2,14 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="net.waterfallflower.cursedinterpolatorplugin.interpolator.settings.CursedInterpolatorSettingsForm">
   <grid id="27dc6" binding="mainPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
-      <xy x="20" y="20" width="623" height="483"/>
+      <xy x="20" y="20" width="623" height="497"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
       <grid id="b24d1" binding="mainSettingsLabel" layout-manager="FormLayout">
-        <rowspec value="center:17px:noGrow"/>
+        <rowspec value="center:max(d;4px):noGrow"/>
+        <rowspec value="top:4dlu:noGrow"/>
         <rowspec value="center:71px:noGrow"/>
         <rowspec value="top:20dlu:noGrow"/>
         <rowspec value="center:16px:noGrow"/>
@@ -27,7 +28,7 @@
             <rowspec value="center:max(d;4px):noGrow"/>
             <colspec value="fill:554px:noGrow"/>
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
               <forms/>
             </constraints>
             <properties/>
@@ -50,27 +51,18 @@
                   <forms defaultalign-horz="false" defaultalign-vert="false"/>
                 </constraints>
                 <properties>
-                  <text value="MCP Folder:"/>
+                  <text resource-bundle="CursedInterpolatorLocalisation" key="label.mcp_folder.name"/>
                 </properties>
               </component>
             </children>
           </grid>
           <component id="b1ac5" class="javax.swing.JLabel" binding="MAPPINGS_LABEL">
             <constraints>
-              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
               <forms/>
             </constraints>
             <properties>
-              <text value="Fabric Mappings Configuration."/>
-            </properties>
-          </component>
-          <component id="2b4fb" class="javax.swing.JLabel" binding="MCP_LOC_LABEL">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-              <forms/>
-            </constraints>
-            <properties>
-              <text value="MCP Default Configuration: (hardcoded strings, please change them, or non-English speaking people would beat me.)"/>
+              <text resource-bundle="CursedInterpolatorLocalisation" key="label.fabric_settings.name"/>
             </properties>
           </component>
           <grid id="d0f8c" binding="SUB_TINY_FILE" layout-manager="FormLayout">
@@ -80,7 +72,7 @@
             <colspec value="fill:116px:noGrow"/>
             <colspec value="fill:438px:grow"/>
             <constraints>
-              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
               <forms/>
             </constraints>
             <properties/>
@@ -92,7 +84,7 @@
                   <forms/>
                 </constraints>
                 <properties>
-                  <text value="Location of .tiny file:"/>
+                  <text resource-bundle="CursedInterpolatorLocalisation" key="label.tiny_location.name"/>
                 </properties>
               </component>
               <component id="f9aad" class="com.intellij.openapi.ui.TextFieldWithBrowseButton" binding="TINY_FILE_FIELD">
@@ -110,7 +102,7 @@
                   <forms/>
                 </constraints>
                 <properties>
-                  <text value="Use custom .tiny file."/>
+                  <text resource-bundle="CursedInterpolatorLocalisation" key="radiobutton.use_tiny.name"/>
                 </properties>
               </component>
             </children>
@@ -132,7 +124,7 @@
             <colspec value="left:4dlu:noGrow"/>
             <colspec value="fill:max(d;4px):noGrow"/>
             <constraints>
-              <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
               <forms/>
             </constraints>
             <properties/>
@@ -144,7 +136,7 @@
                   <forms/>
                 </constraints>
                 <properties>
-                  <text value="Current Github repository (user/repo):"/>
+                  <text resource-bundle="CursedInterpolatorLocalisation" key="label.repo_name.name"/>
                 </properties>
               </component>
               <component id="7054c" class="javax.swing.JComboBox" binding="GITHUB_COMMIT_FIELD">
@@ -164,7 +156,7 @@
                   <forms/>
                 </constraints>
                 <properties>
-                  <text value="Use github commit (recommended)."/>
+                  <text resource-bundle="CursedInterpolatorLocalisation" key="radiobutton.use_commit.name"/>
                 </properties>
               </component>
               <component id="94a1a" class="javax.swing.JLabel" binding="COMMIT_RELOAD_LABEL">
@@ -173,7 +165,7 @@
                   <forms/>
                 </constraints>
                 <properties>
-                  <text value="Selected commit:"/>
+                  <text resource-bundle="CursedInterpolatorLocalisation" key="label.repo_commit.name"/>
                 </properties>
               </component>
               <component id="a0816" class="javax.swing.JComboBox" binding="COMMIT_RELOAD_LIST">
@@ -207,7 +199,7 @@
                       <forms/>
                     </constraints>
                     <properties>
-                      <text value="Commit Information:"/>
+                      <text resource-bundle="CursedInterpolatorLocalisation" key="label.commit_settings.name"/>
                     </properties>
                   </component>
                   <component id="99911" class="javax.swing.JLabel" binding="COMMIT_INFO_VERSION_LABEL">
@@ -216,7 +208,7 @@
                       <forms/>
                     </constraints>
                     <properties>
-                      <text value="Version:"/>
+                      <text resource-bundle="CursedInterpolatorLocalisation" key="label.commit_version.name"/>
                     </properties>
                   </component>
                   <component id="f9e01" class="javax.swing.JLabel" binding="COMMIT_INFO_INSTALLED_LABEL">
@@ -225,7 +217,7 @@
                       <forms/>
                     </constraints>
                     <properties>
-                      <text value="Installed:"/>
+                      <text resource-bundle="CursedInterpolatorLocalisation" key="label.commit_installed.name"/>
                     </properties>
                   </component>
                   <component id="5b037" class="javax.swing.JTextArea" binding="COMMIT_VERSION_DYNAMIC">
@@ -281,6 +273,15 @@
               </component>
             </children>
           </grid>
+          <component id="2b4fb" class="javax.swing.JLabel" binding="MCP_LOC_LABEL">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <forms/>
+            </constraints>
+            <properties>
+              <text resource-bundle="CursedInterpolatorLocalisation" key="label.settings.name"/>
+            </properties>
+          </component>
         </children>
       </grid>
       <grid id="5e735" binding="mainInfo" layout-manager="FormLayout">
@@ -300,7 +301,7 @@
               <forms/>
             </constraints>
             <properties>
-              <text value="A note on search"/>
+              <text resource-bundle="CursedInterpolatorLocalisation" key="button.search_note.name"/>
             </properties>
           </component>
           <component id="ccdf3" class="javax.swing.JLabel" binding="ERROR_LABEL">
