@@ -6,7 +6,7 @@ import immibis.bon.IProgressListener;
 import immibis.bon.gui.Side;
 import net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorSettingsStorage;
 import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.MappingsViewerToolWindow;
-import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.TableHelper;
+import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.TableUtils;
 import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.TableModels;
 
 import javax.swing.*;
@@ -92,7 +92,7 @@ public class RefreshActionListener implements ActionListener {
                 //                        trs.setComparator(2, McpMappingLoader.OBF_COMPARATOR);
                 window.loadPrefs();
             } catch (McpMappingLoader.CantLoadMCPMappingException e1) {
-                String s = TableHelper.getStackTraceMessage("", e1);
+                String s = TableUtils.getStackTraceMessage("", e1);
 
                 System.err.println(s);
 
@@ -107,7 +107,7 @@ public class RefreshActionListener implements ActionListener {
                     JOptionPane.showMessageDialog(window, errMsg, "MMV - Error", JOptionPane.ERROR_MESSAGE);
                 });
             } catch (Exception e1) {
-                String s = TableHelper.getStackTraceMessage("An error has occurred - give calmilamsy this stack trace (which has been copied to the clipboard)\n", e1);
+                String s = TableUtils.getStackTraceMessage("An error has occurred - give calmilamsy this stack trace (which has been copied to the clipboard)\n", e1);
 
                 System.err.println(s);
 

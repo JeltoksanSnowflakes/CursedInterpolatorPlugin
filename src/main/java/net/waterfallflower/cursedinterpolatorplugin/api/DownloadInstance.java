@@ -1,16 +1,17 @@
 package net.waterfallflower.cursedinterpolatorplugin.api;
 
 import com.intellij.openapi.progress.ProgressIndicator;
-import net.glasslauncher.common.CommonConfig;
+import net.glasslauncher.common.FileUtils;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 import java.security.MessageDigest;
-
-import static net.glasslauncher.common.FileUtils.getFileChecksum;
+import java.security.NoSuchAlgorithmException;
 
 public class DownloadInstance {
 
@@ -20,53 +21,42 @@ public class DownloadInstance {
         this.indicator = indicator;
     }
 
-    public boolean downloadFile(String urlStr, String pathStr, String md5, String filename) {
-        URL url;
+    public boolean downloadFile(String urlString, String pathString, String md5, String filename) {
+        URLConnection urlConnection = null;
+        File point;
+        //Validate URL.
         try {
-            url = new URL(urlStr);
-        } catch (Exception e) {
-            CommonConfig.getLogger().info("Failed to download file \"" + urlStr + "\": Invalid URL.");
+            urlConnection = new URL(urlString).openConnection();
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
-        File file;
+
+        //Validate File.
         try {
-            (new File(pathStr)).mkdirs();
-            file = new File(pathStr + "/" + filename);
-            if (md5 != null && file.exists() && getFileChecksum(MessageDigest.getInstance("MD5"), file).toLowerCase().equals(md5.toLowerCase())) {
+            (new File(pathString)).mkdirs();
+            point = new File(pathString + "/" + filename);
+            if (md5 != null && point.exists() && FileUtils.getFileChecksum(MessageDigest.getInstance("MD5"), point).equalsIgnoreCase(md5))
                 return true;
-            }
-        } catch (Exception e) {
-            CommonConfig.getLogger().info("Failed to download file \"" + urlStr + "\": Invalid path.");
+
+        } catch (IOException | NoSuchAlgorithmException e) {
             e.printStackTrace();
             return false;
         }
 
         try {
-            URLConnection connection = url.openConnection();
-            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
-            connection.connect();
-            BufferedInputStream inputStream = new BufferedInputStream(connection.getInputStream());
-            FileOutputStream fileOS = new FileOutputStream(file);
-            byte[] data = new byte[1024];
-            int byteContent;
+            ReadableByteChannel readableByteChannel = new ReadableByteChannelWatchable(Channels.newChannel(urlConnection.getInputStream()), indicator, urlConnection.getContentLength());
+            FileOutputStream fileOutputStream = new FileOutputStream(point);
+            fileOutputStream.getChannel().transferFrom(readableByteChannel, 0, Long.MAX_VALUE);
 
-            int bytesRead = -1;
-            long totalBytesRead = 0;
-            long fileSize = connection.getContentLength();
-
-            while ((byteContent = inputStream.read(data, 0, 1024)) != -1) {
-                fileOS.write(data, 0, byteContent);
-                totalBytesRead += bytesRead;
-                indicator.setFraction(totalBytesRead / fileSize);
-            }
-
-            fileOS.close();
-        } catch (Exception e) {
-            CommonConfig.getLogger().info("Failed to download file \"" + urlStr + "\":");
+            readableByteChannel.close();
+            fileOutputStream.close();
+            return true;
+        } catch (IOException e) {
+            //Cringe url.
             e.printStackTrace();
             return false;
         }
-        return true;
+
     }
 }

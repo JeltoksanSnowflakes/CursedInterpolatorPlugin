@@ -3,7 +3,7 @@ package net.waterfallflower.cursedinterpolatorplugin.interpolator.table.listener
 import bspkrs.mmv.gui.TableColumnAdjuster;
 import immibis.bon.IProgressListener;
 import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.MappingsViewerToolWindow;
-import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.TableHelper;
+import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.TableUtils;
 import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.TableModels;
 
 import javax.swing.*;
@@ -71,7 +71,7 @@ public class SearchActionListener implements ActionListener {
                 new TableColumnAdjuster(window.TABLE_CLASSES).adjustColumns();
                 window.loadPrefs();
             } catch (Exception e1) {
-                String s = TableHelper.getStackTraceMessage("An error has occurred - give calmilamsy this stack trace (which has been copied to the clipboard)\n", e1);
+                String s = TableUtils.getStackTraceMessage("An error has occurred - give calmilamsy this stack trace (which has been copied to the clipboard)\n", e1);
 
                 System.err.println(s);
 

@@ -4,7 +4,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class TableModels {
     public static DefaultTableModel fieldsDefaultModel = new DefaultTableModel(
-            new Object[][] {{},},
+            new Object[][] {{}},
             new String[] {
                     "MCP Name",
                     "SRG Name",
@@ -35,7 +35,7 @@ public class TableModels {
     };
 
     public static DefaultTableModel classesDefaultModel = new DefaultTableModel(
-            new Object[][] {{},},
+            new Object[][] {{}},
             new String[] {
                     "Pkg name",
                     "SRG name",
@@ -62,7 +62,7 @@ public class TableModels {
         }
     };
     public static DefaultTableModel methodsDefaultModel = new DefaultTableModel(
-            new Object[][] {{},},
+            new Object[][] {{}},
             new String[] {
                     "MCP Name",
                     "SRG Name",

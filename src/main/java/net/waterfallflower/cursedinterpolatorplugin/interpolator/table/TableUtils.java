@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public class TableHelper {
+public class TableUtils {
 
     public static String getPrintableStackTrace(Throwable e, Set<StackTraceElement> stopAt) {
         StringBuilder s = new StringBuilder(e.toString());
