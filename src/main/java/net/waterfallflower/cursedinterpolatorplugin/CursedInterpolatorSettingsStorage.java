@@ -16,8 +16,7 @@ import java.io.File;
 )
 public class CursedInterpolatorSettingsStorage implements PersistentStateComponent<CursedInterpolatorSettingsStorage> {
 
-
-    /**
+    /*
      * true -> Custom .tiny file.
      * false -> Github commit.
      */

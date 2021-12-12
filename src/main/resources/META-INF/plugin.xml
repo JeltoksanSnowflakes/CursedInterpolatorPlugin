@@ -6,17 +6,17 @@
     <description><![CDATA[
     Cursed-Interpolator, but as IntelliJ IDEA plugin.<br/><br/>
 
-    **Original program:**<br/>
-    Copyright (C) 2013 bspkrs<br/>
-    Portions Copyright (C) 2013 Alex "immibis" Campbell<br/><br/>
+    <b>Original program:</b><br/>
+    Copyright (C) 2013 bspkrs.<br/>
+    Portions Copyright (C) 2013 Alex "immibis" Campbell.<br/><br/>
 
-    **Fabric Mappings adaptation:**<br/>
+    <b>Fabric Mappings adaptation:</b><br/>
     calmilamsy<br/><br/>
 
-    **Intellij IDEA integration:**<br/>
+    <b>Intellij IDEA integration:</b><br/>
     WaterfallFlower<br/><br/>
 
-    **Credits (original application):**
+    <b>Credits (original application):</b><br/>
     - bspkrs (<a href="https://github.com/bspkrs/MCPMappingViewer">MCPMappingsViewer</a>);<br/>
     - immibis (<a href="https://github.com/immibis/bearded-octo-nemesis">BON</a>);<br/>
     - Searge et al (<a href="http://mcp.ocean-labs.de">MCP</a>);<br/>
@@ -37,9 +37,6 @@
         <applicationConfigurable parentId="tools" instance="net.waterfallflower.cursedinterpolatorplugin.interpolator.settings.CursedInterpolatorConfigurable"
                                  id="net.waterfallflower.cursedinterpolatorplugin.interpolator.settings.CursedInterpolatorConfigurable"
                                  displayName="Cursed Interpolator"/>
-        <!-- Delete this -->
-        <!-- <toolWindow id="Minecraft" secondary="true" icon="AllIcons.FileTypes.Java" anchor="right"
-                    factoryClass="net.waterfallflower.cursedinterpolatorplugin.interpolator.cursed.ToolWindowAppletMinecraft"/> -->
     </extensions>
 
     <actions>

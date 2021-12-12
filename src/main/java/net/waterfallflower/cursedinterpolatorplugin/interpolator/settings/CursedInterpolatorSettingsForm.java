@@ -15,6 +15,7 @@ import net.waterfallflower.cursedinterpolatorplugin.api.ValueWithByte;
 import net.waterfallflower.cursedinterpolatorplugin.api.ui.SmallButton;
 import net.waterfallflower.cursedinterpolatorplugin.interpolator.CursedInterpolatorWindowFactory;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,39 +26,31 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class CursedInterpolatorSettingsForm {
-    @Getter
-    private JPanel mainPanel;
-    @IndirectUse
-    private JLabel MCP_LOC_LABEL;
+
+    @Getter private JPanel mainPanel;
+    @IndirectUse private JLabel MCP_LOC_LABEL;
     private TextFieldWithBrowseButton MCP_LOC_BOX;
-    @IndirectUse
-    private JLabel MAPPINGS_LABEL;
-    @IndirectUse
-    private JPanel mainSettingsLabel;
-    @IndirectUse
-    private JPanel mainInfo;
+    @IndirectUse private JLabel MAPPINGS_LABEL;
+    @IndirectUse private JPanel mainSettingsLabel;
+    @IndirectUse private JPanel mainInfo;
     private JLabel NOTE_LABEL;
     private JRadioButton USE_TINY_FILE;
     private JRadioButton USE_GITHUB_COMMIT;
     private JPanel SUB_TINY_FILE;
     private JPanel SUB_GITHUB_COMMIT;
-    @IndirectUse
-    private JLabel TINY_FILE_LABEL;
+    @IndirectUse private JLabel TINY_FILE_LABEL;
     private TextFieldWithBrowseButton TINY_FILE_FIELD;
-    @IndirectUse
-    private JLabel MCP_LOC_L2;
-    @IndirectUse
-    private JLabel GITHUB_COMMIT_LABEL;
+    @IndirectUse private JLabel MCP_LOC_L2;
+    @IndirectUse private JLabel GITHUB_COMMIT_LABEL;
     private JComboBox<String> GITHUB_COMMIT_FIELD;
-    @IndirectUse
-    private JPanel MCP_GENERAL;
+    @IndirectUse private JPanel MCP_GENERAL;
     private JComboBox<String> COMMIT_RELOAD_LIST;
     private SmallButton COMMIT_RELOAD_BUTTON;
-    private JLabel COMMIT_RELOAD_LABEL;
-    private JPanel COMMIT_RELOAD_INFO;
-    private JLabel COMMIT_INFO_LABEL;
-    private JLabel COMMIT_INFO_VERSION_LABEL;
-    private JLabel COMMIT_INFO_INSTALLED_LABEL;
+    @IndirectUse private JLabel COMMIT_RELOAD_LABEL;
+    @IndirectUse private JPanel COMMIT_RELOAD_INFO;
+    @IndirectUse private JLabel COMMIT_INFO_LABEL;
+    @IndirectUse private JLabel COMMIT_INFO_VERSION_LABEL;
+    @IndirectUse private JLabel COMMIT_INFO_INSTALLED_LABEL;
     private JTextArea COMMIT_VERSION_DYNAMIC;
     private JTextArea COMMIT_INSTALLED_DYNAMIC;
     private SmallButton COMMIT_INSTALL_ACTION;
@@ -66,7 +59,7 @@ public class CursedInterpolatorSettingsForm {
 
     private final ResourceBundle bundle = ResourceBundle.getBundle("CursedInterpolatorLocalisation");
 
-    public String getBoxString() {
+    public @Nullable String getBoxString() {
         return MCP_LOC_BOX.getText();
     }
 
@@ -85,7 +78,7 @@ public class CursedInterpolatorSettingsForm {
             USE_GITHUB_COMMIT.setSelected(true);
     }
 
-    public String getTinyFileLocation() {
+    public @Nullable String getTinyFileLocation() {
         return TINY_FILE_FIELD.getText();
     }
 
@@ -93,7 +86,7 @@ public class CursedInterpolatorSettingsForm {
         TINY_FILE_FIELD.setText(s);
     }
 
-    public String getGithubRepo() {
+    public @Nullable String getGithubRepo() {
         return (String) GITHUB_COMMIT_FIELD.getSelectedItem();
     }
 
