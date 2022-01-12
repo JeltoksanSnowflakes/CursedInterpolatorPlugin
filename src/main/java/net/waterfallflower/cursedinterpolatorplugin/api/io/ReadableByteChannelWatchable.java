@@ -1,4 +1,4 @@
-package net.waterfallflower.cursedinterpolatorplugin.api;
+package net.waterfallflower.cursedinterpolatorplugin.api.io;
 
 import com.intellij.openapi.progress.ProgressIndicator;
 

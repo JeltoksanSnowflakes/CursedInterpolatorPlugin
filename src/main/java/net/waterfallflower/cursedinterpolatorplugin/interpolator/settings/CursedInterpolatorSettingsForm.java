@@ -9,7 +9,7 @@ import com.intellij.ui.JBColor;
 import lombok.Getter;
 import net.glasslauncher.cursedinterpolator.objects.GithubCommit;
 import net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorSettingsStorage;
-import net.waterfallflower.cursedinterpolatorplugin.api.DownloadCommitRunnable;
+import net.waterfallflower.cursedinterpolatorplugin.api.network.DownloadCommitRunnable;
 import net.waterfallflower.cursedinterpolatorplugin.api.IndirectUse;
 import net.waterfallflower.cursedinterpolatorplugin.api.ValueWithByte;
 import net.waterfallflower.cursedinterpolatorplugin.api.ui.SmallButton;

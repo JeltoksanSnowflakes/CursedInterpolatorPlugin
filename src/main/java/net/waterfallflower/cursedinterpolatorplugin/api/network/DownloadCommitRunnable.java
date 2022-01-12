@@ -1,4 +1,4 @@
-package net.waterfallflower.cursedinterpolatorplugin.api;
+package net.waterfallflower.cursedinterpolatorplugin.api.network;
 
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.Task;
@@ -52,13 +52,11 @@ public class DownloadCommitRunnable extends Task.Backgroundable {
         cachedFile.delete();
 
         indicator.setFraction(0.0D);
-
         tempDir.mkdir();
         indicator.setText2("Downloading: " + jarUrl);
-        new DownloadInstance(indicator).downloadFile(jarUrl.toString(), tempDir.getAbsolutePath(), null, tempFile.getName());
-
-        indicator.setText2("Extracting: " + tempFile.getAbsolutePath());
+        new DownloadFileRunnable(indicator, jarUrl.toString(), tempDir.getAbsolutePath(), null, tempFile.getName()).run();
         FileUtils.extractZip(tempFile.getAbsolutePath(), new File(tempDir, "mappings").getAbsolutePath());
+
         if (!mappingsFile.exists()) {
             throw new FileNotFoundException("mappings.tiny not found inside jar! Make sure the target jar is a valid jar before trying again.");
         }

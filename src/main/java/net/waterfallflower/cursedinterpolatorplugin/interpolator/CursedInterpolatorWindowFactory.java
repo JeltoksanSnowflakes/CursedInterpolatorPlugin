@@ -17,7 +17,7 @@ public class CursedInterpolatorWindowFactory implements ToolWindowFactory, DumbA
 
     public static List<GithubCommit> CURRENT_COMMIT_LIST = new ArrayList<>();
 
-    public MappingsViewerToolWindow GUI;
+    public static MappingsViewerToolWindow GUI;
 
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {

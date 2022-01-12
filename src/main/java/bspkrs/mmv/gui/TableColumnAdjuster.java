@@ -34,13 +34,13 @@ import java.util.Map;
  */
 
 public class TableColumnAdjuster implements PropertyChangeListener, TableModelListener {
-    private JTable table;
-    private int spacing;
+    private final JTable table;
+    private final int spacing;
     private boolean isColumnHeaderIncluded;
     private boolean isColumnDataIncluded;
     private boolean isOnlyAdjustLarger;
     private boolean isDynamicAdjustment;
-    private Map<TableColumn, Integer> columnSizes = new HashMap<>();
+    private final Map<TableColumn, Integer> columnSizes = new HashMap<>();
 
     /*
      *  Specify the table and use default spacing

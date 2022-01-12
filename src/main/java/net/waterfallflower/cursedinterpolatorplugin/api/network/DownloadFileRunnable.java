@@ -1,7 +1,8 @@
-package net.waterfallflower.cursedinterpolatorplugin.api;
+package net.waterfallflower.cursedinterpolatorplugin.api.network;
 
 import com.intellij.openapi.progress.ProgressIndicator;
 import net.glasslauncher.common.FileUtils;
+import net.waterfallflower.cursedinterpolatorplugin.api.io.ReadableByteChannelWatchable;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -13,23 +14,32 @@ import java.nio.channels.ReadableByteChannel;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class DownloadInstance {
+public class DownloadFileRunnable implements Runnable {
 
     final ProgressIndicator indicator;
+    final String urlString;
+    final String pathString;
+    final String md5;
+    final String filename;
 
-    public DownloadInstance(ProgressIndicator indicator) {
+    public DownloadFileRunnable(ProgressIndicator indicator, String urlString, String pathString, String md5, String filename) {
         this.indicator = indicator;
+        this.urlString = urlString;
+        this.pathString = pathString;
+        this.md5 = md5;
+        this.filename = filename;
     }
 
-    public boolean downloadFile(String urlString, String pathString, String md5, String filename) {
-        URLConnection urlConnection = null;
+    @Override
+    public void run() {
+        URLConnection urlConnection;
         File point;
         //Validate URL.
         try {
             urlConnection = new URL(urlString).openConnection();
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
+            return;
         }
 
         //Validate File.
@@ -37,11 +47,11 @@ public class DownloadInstance {
             (new File(pathString)).mkdirs();
             point = new File(pathString + "/" + filename);
             if (md5 != null && point.exists() && FileUtils.getFileChecksum(MessageDigest.getInstance("MD5"), point).equalsIgnoreCase(md5))
-                return true;
+                return;
 
         } catch (IOException | NoSuchAlgorithmException e) {
             e.printStackTrace();
-            return false;
+            return;
         }
 
         try {
@@ -51,12 +61,11 @@ public class DownloadInstance {
 
             readableByteChannel.close();
             fileOutputStream.close();
-            return true;
+            return;
         } catch (IOException e) {
             //Cringe url.
             e.printStackTrace();
-            return false;
+            return;
         }
-
     }
 }

@@ -42,6 +42,8 @@ public class MappingsViewerToolWindow extends JFrame {
     public JButton BUTTON_REFRESH_TABLE;
     public JComboBox<Side> BOX_TABLE_SIDE;
 
+    public boolean CAN_USE = false;
+
     private final List<RowSorter.SortKey> classSort = new ArrayList<>();
     private final List<RowSorter.SortKey> methodSort = new ArrayList<>();
     private final List<RowSorter.SortKey> fieldSort = new ArrayList<>();
@@ -224,5 +226,4 @@ public class MappingsViewerToolWindow extends JFrame {
             e.printStackTrace();
         }
     }
-
 }
