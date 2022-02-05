@@ -1,4 +1,4 @@
-package net.waterfallflower.cursedinterpolatorplugin.api;
+package net.waterfallflower.cursedinterpolatorplugin.api.utils;
 
 public class InitAndApply {
     public interface ConsumerT<T> {

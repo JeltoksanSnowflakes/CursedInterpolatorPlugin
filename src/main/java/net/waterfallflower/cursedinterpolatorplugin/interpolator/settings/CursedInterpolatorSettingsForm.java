@@ -9,8 +9,8 @@ import com.intellij.ui.JBColor;
 import lombok.Getter;
 import net.glasslauncher.cursedinterpolator.objects.GithubCommit;
 import net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorSettingsStorage;
-import net.waterfallflower.cursedinterpolatorplugin.api.IndirectUse;
-import net.waterfallflower.cursedinterpolatorplugin.api.TwoValueWithByte;
+import net.waterfallflower.cursedinterpolatorplugin.api.utils.IndirectUse;
+import net.waterfallflower.cursedinterpolatorplugin.api.utils.TwoValuesWithByte;
 import net.waterfallflower.cursedinterpolatorplugin.api.network.DownloadCommitRunnable;
 import net.waterfallflower.cursedinterpolatorplugin.api.ui.SmallButton;
 import net.waterfallflower.cursedinterpolatorplugin.interpolator.CursedInterpolatorWindowFactory;
@@ -181,7 +181,7 @@ public class CursedInterpolatorSettingsForm {
 
     private void updateCurrentCommitList(@NotNull String s) {
         if(s.length() > 0) {
-            TwoValueWithByte<List<GithubCommit>, IOException> commits = GithubCommit.getCommits(s);
+            TwoValuesWithByte<List<GithubCommit>, IOException> commits = GithubCommit.getCommits(s);
 
             if(commits.getByteValue() == 1) {
                 CursedInterpolatorWindowFactory.CURRENT_COMMIT_LIST = commits.getFirstValue();

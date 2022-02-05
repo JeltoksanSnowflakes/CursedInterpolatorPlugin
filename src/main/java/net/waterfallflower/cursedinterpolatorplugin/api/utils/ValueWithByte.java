@@ -1,4 +1,4 @@
-package net.waterfallflower.cursedinterpolatorplugin.api;
+package net.waterfallflower.cursedinterpolatorplugin.api.utils;
 
 import lombok.Getter;
 import org.jetbrains.annotations.Nullable;

@@ -1,4 +1,4 @@
-package net.waterfallflower.cursedinterpolatorplugin.api;
+package net.waterfallflower.cursedinterpolatorplugin.api.utils;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

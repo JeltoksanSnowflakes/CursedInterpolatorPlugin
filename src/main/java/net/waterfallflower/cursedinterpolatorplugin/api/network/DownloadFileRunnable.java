@@ -61,11 +61,8 @@ public class DownloadFileRunnable implements Runnable {
 
             readableByteChannel.close();
             fileOutputStream.close();
-            return;
         } catch (IOException e) {
-            //Cringe url.
             e.printStackTrace();
-            return;
         }
     }
 }
