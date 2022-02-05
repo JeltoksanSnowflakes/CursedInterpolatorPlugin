@@ -9,9 +9,9 @@ import com.intellij.ui.JBColor;
 import lombok.Getter;
 import net.glasslauncher.cursedinterpolator.objects.GithubCommit;
 import net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorSettingsStorage;
+import net.waterfallflower.cursedinterpolatorplugin.api.TwoValueWithByte;
 import net.waterfallflower.cursedinterpolatorplugin.api.network.DownloadCommitRunnable;
 import net.waterfallflower.cursedinterpolatorplugin.api.IndirectUse;
-import net.waterfallflower.cursedinterpolatorplugin.api.ValueWithByte;
 import net.waterfallflower.cursedinterpolatorplugin.api.ui.SmallButton;
 import net.waterfallflower.cursedinterpolatorplugin.interpolator.CursedInterpolatorWindowFactory;
 import org.jetbrains.annotations.NotNull;
@@ -22,6 +22,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -103,14 +104,19 @@ public class CursedInterpolatorSettingsForm {
     }
 
 
-    private void checkMappingsUIStatus() {
-        for(Component q : SUB_TINY_FILE.getComponents())
-            if(!(q instanceof JRadioButton))
-                q.setEnabled(USE_TINY_FILE.isSelected());
+    void panelSwitch(JPanel panel, JRadioButton button) {
+        for(Component q : panel.getComponents())
+            if(!(q instanceof JRadioButton)) {
+                if (q instanceof JPanel)
+                    panelSwitch((JPanel) q, button);
+                else
+                    q.setEnabled(button.isSelected());
+            }
+    }
 
-        for(Component q : SUB_GITHUB_COMMIT.getComponents())
-            if(!(q instanceof JRadioButton))
-                q.setEnabled(USE_GITHUB_COMMIT.isSelected());
+    private void checkMappingsUIStatus() {
+        panelSwitch(SUB_TINY_FILE, USE_TINY_FILE);
+        panelSwitch(SUB_GITHUB_COMMIT, USE_GITHUB_COMMIT);
     }
 
     public CursedInterpolatorSettingsForm() {
@@ -137,13 +143,8 @@ public class CursedInterpolatorSettingsForm {
         USE_GITHUB_COMMIT.addItemListener(itemEvent -> checkMappingsUIStatus());
 
         COMMIT_RELOAD_BUTTON.setIcon(AllIcons.Actions.Refresh);
-        COMMIT_RELOAD_BUTTON.addActionListener(actionEvent -> {
-            if(GITHUB_COMMIT_FIELD.getSelectedItem() != null) {
-                COMMIT_RELOAD_BUTTON.setEnabled(false);
-                updateCurrentCommitList((String) GITHUB_COMMIT_FIELD.getSelectedItem());
-                COMMIT_RELOAD_BUTTON.setEnabled(true);
-            }
-        });
+
+        COMMIT_RELOAD_BUTTON.addActionListener(actionEvent -> currentCommitReload());
 
         COMMIT_RELOAD_ACTION.setIcon(AllIcons.Actions.Refresh);
         COMMIT_RELOAD_ACTION.addActionListener(actionEvent -> commitReloadListCheck());
@@ -162,6 +163,14 @@ public class CursedInterpolatorSettingsForm {
         COMMIT_RELOAD_LIST.addItemListener(itemEvent -> commitReloadListCheck());
     }
 
+    private void currentCommitReload() {
+        if(GITHUB_COMMIT_FIELD.getSelectedItem() != null) {
+            COMMIT_RELOAD_BUTTON.setEnabled(false);
+            updateCurrentCommitList((String) GITHUB_COMMIT_FIELD.getSelectedItem());
+            COMMIT_RELOAD_BUTTON.setEnabled(true);
+        }
+    }
+
     private void commitReloadListCheck() {
         if(COMMIT_RELOAD_LIST.getSelectedItem() != null && ((String)COMMIT_RELOAD_LIST.getSelectedItem()).length() > 0) {
             SHA_COMMIT_FULL = (String) COMMIT_RELOAD_LIST.getSelectedItem();
@@ -172,15 +181,16 @@ public class CursedInterpolatorSettingsForm {
 
     private void updateCurrentCommitList(@NotNull String s) {
         if(s.length() > 0) {
-            ValueWithByte<List<GithubCommit>> commits = GithubCommit.getCommits(s);
+            TwoValueWithByte<List<GithubCommit>, IOException> commits = GithubCommit.getCommits(s);
 
-            if(commits.getByteVar() == 1) {
-                CursedInterpolatorWindowFactory.CURRENT_COMMIT_LIST = commits.getValue();
+            if(commits.getByteValue() == 1) {
+                CursedInterpolatorWindowFactory.CURRENT_COMMIT_LIST = commits.getFirstValue();
                 updateCommitList();
                 setErrorStatus(false);
             } else {
                 COMMIT_RELOAD_LIST.removeAllItems();
                 setErrorStatus(true);
+                JOptionPane.showMessageDialog(null, commits.getSecondValue().getMessage(),"Thrown exception!", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }

@@ -2,6 +2,7 @@ package net.glasslauncher.cursedinterpolator.objects;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import net.waterfallflower.cursedinterpolatorplugin.api.TwoValueWithByte;
 import net.waterfallflower.cursedinterpolatorplugin.api.ValueWithByte;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,11 +16,11 @@ public class GithubCommit {
 
     public String sha;
 
-    public static @NotNull ValueWithByte<List<GithubCommit>> getCommits(@NotNull String repo) {
+    public static @NotNull TwoValueWithByte<List<GithubCommit>, IOException> getCommits(@NotNull String repo) {
         try(InputStream inputStream = new URL("https://api.github.com/repos/" + repo + "/commits").openStream()) {
-            return new ValueWithByte<>(1, new Gson().fromJson(new InputStreamReader(inputStream), new TypeToken<List<GithubCommit>>() {}.getType()));
+            return new TwoValueWithByte<>(1, new Gson().fromJson(new InputStreamReader(inputStream), new TypeToken<List<GithubCommit>>() {}.getType()), null);
         } catch (IOException e) {
-            return new ValueWithByte<>(0, null);
+            return new TwoValueWithByte<>(0, null, e);
         }
     }
 }
