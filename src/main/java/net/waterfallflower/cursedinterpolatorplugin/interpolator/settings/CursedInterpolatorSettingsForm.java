@@ -9,9 +9,9 @@ import com.intellij.ui.JBColor;
 import lombok.Getter;
 import net.glasslauncher.cursedinterpolator.objects.GithubCommit;
 import net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorSettingsStorage;
+import net.waterfallflower.cursedinterpolatorplugin.api.IndirectUse;
 import net.waterfallflower.cursedinterpolatorplugin.api.TwoValueWithByte;
 import net.waterfallflower.cursedinterpolatorplugin.api.network.DownloadCommitRunnable;
-import net.waterfallflower.cursedinterpolatorplugin.api.IndirectUse;
 import net.waterfallflower.cursedinterpolatorplugin.api.ui.SmallButton;
 import net.waterfallflower.cursedinterpolatorplugin.interpolator.CursedInterpolatorWindowFactory;
 import org.jetbrains.annotations.NotNull;
@@ -158,9 +158,9 @@ public class CursedInterpolatorSettingsForm {
         )));
 
         updateCurrentCommitList(CursedInterpolatorSettingsStorage.getInstance().MAPPINGS_INFO);
+        COMMIT_RELOAD_LIST.addItemListener(itemEvent -> commitReloadListCheck());
 
         COMMIT_RELOAD_LIST.setSelectedItem(SHA_COMMIT_FULL);
-        COMMIT_RELOAD_LIST.addItemListener(itemEvent -> commitReloadListCheck());
     }
 
     private void currentCommitReload() {
@@ -174,7 +174,7 @@ public class CursedInterpolatorSettingsForm {
     private void commitReloadListCheck() {
         if(COMMIT_RELOAD_LIST.getSelectedItem() != null && ((String)COMMIT_RELOAD_LIST.getSelectedItem()).length() > 0) {
             SHA_COMMIT_FULL = (String) COMMIT_RELOAD_LIST.getSelectedItem();
-            COMMIT_VERSION_DYNAMIC.setText(SHA_COMMIT_FULL.substring(0, 7));
+            COMMIT_VERSION_DYNAMIC.setText(SHA_COMMIT_FULL);
             checkMappingsLoaded();
         }
     }
@@ -206,7 +206,7 @@ public class CursedInterpolatorSettingsForm {
     }
 
     private void checkMappingsLoaded() {
-        COMMIT_INSTALLED_DYNAMIC.setText(new File(MCP_LOC_BOX.getText(), "conf/interpolator/" + getGithubRepo().replace('/', '.') + "-" + getGithubCommit().substring(0, 7) + ".tiny").exists() ? ("true (" + CursedInterpolatorSettingsStorage.getMappings().getName() + ")") : "false");
+        COMMIT_INSTALLED_DYNAMIC.setText(new File(MCP_LOC_BOX.getText(), "conf/interpolator/" + getGithubRepo().replace('/', '.') + "-" + getGithubCommit() + ".tiny").exists() ? ("true (" + CursedInterpolatorSettingsStorage.getMappings().getName() + ")") : "false");
     }
 
     private String SHA_COMMIT_FULL = "";

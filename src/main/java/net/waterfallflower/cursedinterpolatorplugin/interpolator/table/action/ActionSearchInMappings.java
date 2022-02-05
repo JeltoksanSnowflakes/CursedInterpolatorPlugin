@@ -11,11 +11,9 @@ import org.jetbrains.annotations.NotNull;
 public class ActionSearchInMappings extends AnAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-        if(!CursedInterpolatorWindowFactory.GUI.CAN_USE)
-            return;
+        CursedInterpolatorWindowFactory.triggerCheck(e.getProject(), true);
 
         CaretModel caretModel = e.getRequiredData(CommonDataKeys.EDITOR).getCaretModel();
-
         String selectedText = caretModel.getCurrentCaret().getSelectedText();
 
         if(selectedText != null && selectedText.length() > 0) {
@@ -26,7 +24,9 @@ public class ActionSearchInMappings extends AnAction {
 
     @Override
     public void update(@NotNull AnActionEvent e) {
-        CaretModel caretModel = e.getRequiredData(CommonDataKeys.EDITOR).getCaretModel();
-        e.getPresentation().setEnabledAndVisible(caretModel.getCurrentCaret().hasSelection());
+        e.getPresentation().setEnabledAndVisible(
+                e.getProject() != null &&
+                e.getData(CommonDataKeys.EDITOR) != null
+        );
     }
 }

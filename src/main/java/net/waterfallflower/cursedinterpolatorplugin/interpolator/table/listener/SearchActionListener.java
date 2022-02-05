@@ -3,8 +3,8 @@ package net.waterfallflower.cursedinterpolatorplugin.interpolator.table.listener
 import bspkrs.mmv.gui.TableColumnAdjuster;
 import immibis.bon.IProgressListener;
 import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.MappingsViewerToolWindow;
-import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.TableUtils;
 import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.TableModels;
+import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.TableUtils;
 
 import javax.swing.*;
 import java.awt.*;

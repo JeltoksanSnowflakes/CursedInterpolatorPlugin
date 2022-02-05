@@ -1,4 +1,5 @@
 <idea-plugin>
+    <idea-version since-build="211"/>
     <id>net.waterfallflower.CursedInterpolatorPlugin</id>
     <name>Cursed Interpolator</name>
     <vendor url="https://github.com/WaterfallFlower">WaterfallFlower</vendor>
@@ -32,17 +33,17 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorSettingsStorage"/>
-        <toolWindow id="Cursed.Interpolator" secondary="true" icon="AllIcons.Nodes.DataTables" anchor="right"
+        <toolWindow id="CursedInterpolator.Main" secondary="true" icon="AllIcons.Nodes.DataTables" anchor="right"
                     factoryClass="net.waterfallflower.cursedinterpolatorplugin.interpolator.CursedInterpolatorWindowFactory"/>
         <applicationConfigurable parentId="tools" instance="net.waterfallflower.cursedinterpolatorplugin.interpolator.settings.CursedInterpolatorConfigurable"
-                                 id="net.waterfallflower.cursedinterpolatorplugin.interpolator.settings.CursedInterpolatorConfigurable"
+                                 id="CursedInterpolator.ConfigProvider"
                                  displayName="Cursed Interpolator"/>
     </extensions>
 
     <actions>
         <!-- Add your actions here -->
         <action
-                id="CursedInterpolator.CM.SearchInMappings"
+                id="CursedInterpolator.SearchInMappings"
                 class="net.waterfallflower.cursedinterpolatorplugin.interpolator.table.action.ActionSearchInMappings"
                 text="contextmenu.search.name"
                 description="contextmenu.search.description">

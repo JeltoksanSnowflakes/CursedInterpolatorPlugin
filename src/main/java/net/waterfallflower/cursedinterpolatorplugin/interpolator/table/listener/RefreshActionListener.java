@@ -6,8 +6,8 @@ import immibis.bon.IProgressListener;
 import immibis.bon.gui.Side;
 import net.waterfallflower.cursedinterpolatorplugin.CursedInterpolatorSettingsStorage;
 import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.MappingsViewerToolWindow;
-import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.TableUtils;
 import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.TableModels;
+import net.waterfallflower.cursedinterpolatorplugin.interpolator.table.TableUtils;
 
 import javax.swing.*;
 import java.awt.*;
