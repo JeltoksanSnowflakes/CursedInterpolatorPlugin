@@ -18,7 +18,7 @@ public class GithubCommit {
 
     public static @NotNull TwoValueWithByte<List<GithubCommit>, IOException> getCommits(@NotNull String repo) {
         try(InputStream inputStream = new URL("https://api.github.com/repos/" + repo + "/commits").openStream()) {
-            return InitAndApply.get(new TwoValueWithByte<>(1, new Gson().fromJson(new InputStreamReader(inputStream), new TypeToken<List<GithubCommit>>() {}.getType()), null), bigLongConsumerParameter -> bigLongConsumerParameter.getFirstValue().forEach(alsoLongNamedConsumerParameter -> alsoLongNamedConsumerParameter.sha = alsoLongNamedConsumerParameter.sha.substring(0, 7)));
+            return InitAndApply.get(new TwoValueWithByte<>(1, new Gson().fromJson(new InputStreamReader(inputStream), new TypeToken<List<GithubCommit>>() {}.getType()), null), value -> value.getFirstValue().forEach(commit -> commit.sha = commit.sha.substring(0, 7)));
         } catch (IOException e) {
             return new TwoValueWithByte<>(0, null, e);
         }
