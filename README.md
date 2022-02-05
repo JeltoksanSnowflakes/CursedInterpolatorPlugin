@@ -8,12 +8,12 @@ Plugin is based on [cursed-interpolator by calmilamsy](https://github.com/calmil
 
 ## Building
 
-Warning! Having `Intellij IDEA` is highly recommended getting much more abilities on editing plugin code.
+Warning! Having `Intellij IDEA` is highly recommended for getting much more abilities on editing plugin code.
 
-The way without `Intellij IDEA` (for building and getting .jar file):
+The way without `Intellij IDEA` (to build and get a .jar file):
 1. Clone this repository.
 2. Run `./gradlew buildPlugin` on *nix or `gradlew.bat buildPlugin` on Windows.
-3. The jar file is created in the `/build/distributions` folder. Use the -all file unless you know what you are doing.
+3. The jar file is created in the `/build/distributions` folder. Use only the `-all` file unless you know what you are doing.
 
 ## License
 
