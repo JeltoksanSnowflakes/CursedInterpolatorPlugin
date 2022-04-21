@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'net.waterfallflower'
-version '0.1-1.2'
+version '0.2-1.2'
 
 sourceSets.main.java.srcDirs 'src/main/gen'
 repositories {
@@ -34,8 +34,8 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
     //Junit
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 
     //Lombok
     testCompileOnly 'org.projectlombok:lombok:1.18.22'
@@ -50,9 +50,8 @@ intellij {
 
 patchPluginXml {
     changeNotes = """
-      1.0:<br/>
+      0.1:<br/>
       - Initial release.<br/>
-      
       """
 }
 
