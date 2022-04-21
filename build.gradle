@@ -1,10 +1,11 @@
 plugins {
     id 'java'
     id 'org.jetbrains.intellij' version '1.2.1'
+    id "com.github.johnrengelman.shadow" version "6.1.0"
 }
 
 group 'net.waterfallflower'
-version '0.2-1.2'
+version '0.2.1-1.2'
 
 sourceSets.main.java.srcDirs 'src/main/gen'
 repositories {
@@ -25,9 +26,9 @@ repositories {
 
 dependencies {
 
-    compile "com.github.chocohead:tiny-mappings-parser:d96d407"
-    implementation 'com.google.code.gson:gson:2.8.6'
-    compile 'com.github.calmilamsy:glass-commons:4aa5302a2d'
+    implementation "com.github.chocohead:tiny-mappings-parser:d96d407"
+    compileOnly 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.github.calmilamsy:glass-commons:4aa5302a2d'
 
     //Lombok
     compileOnly 'org.projectlombok:lombok:1.18.22'
@@ -40,6 +41,14 @@ dependencies {
     //Lombok
     testCompileOnly 'org.projectlombok:lombok:1.18.22'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+}
+
+shadowJar {
+    dependencies {
+        it.exclude(dependency('commons-io:commons-io'))
+        it.exclude(dependency('com.google.code.gson:gson'))
+        it.exclude(dependency('com.google.guava:guava'))
+    }
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
