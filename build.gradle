@@ -53,6 +53,8 @@ patchPluginXml {
       0.1:<br/>
       - Initial release.<br/>
       """
+    sinceBuild = "211.*"
+    untilBuild = "221.*"
 }
 
 test {

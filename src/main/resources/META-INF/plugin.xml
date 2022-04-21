@@ -1,5 +1,5 @@
 <idea-plugin>
-    <idea-version since-build="211"/>
+    <idea-version since-build="211.*" until-build="221.*"/>
     <id>net.waterfallflower.CursedInterpolatorPlugin</id>
     <name>Cursed Interpolator</name>
     <vendor url="https://github.com/WaterfallFlower">WaterfallFlower</vendor>
